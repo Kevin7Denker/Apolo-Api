@@ -8,8 +8,8 @@
   ],
   "routes": [
     {
-      "src": "/auth/(.*)",
-      "dest": "/auth/$1"
+      "src": "src/Routes/auth/(.*)",
+      "dest": "src/Routes/auth/$1"
     },
     {
       "src": "/(.*)",
