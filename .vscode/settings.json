@@ -1,5 +1,0 @@
-{
-  "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
-  "appService.defaultWebAppToDeploy": "/subscriptions/8b530d75-850f-40b7-80fd-34e0fcd0a0eb/resourceGroups/apolo_group/providers/Microsoft.Web/sites/apolo",
-  "appService.deploySubpath": "."
-}
