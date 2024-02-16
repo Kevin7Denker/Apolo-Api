@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "./src/server.ts",
+      "src": "src/server.ts",
       "use": "@now/node"
     }
   ],
