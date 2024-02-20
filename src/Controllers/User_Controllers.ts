@@ -132,6 +132,18 @@ class UserController {
       }
     }
   }
+
+  public async findUser(req: Request, res: Response) {
+    const id = req.params.id;
+
+    try {
+      const response = await this.userRepository.findUser(id);
+
+      return res.status(200).json(response);
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default UserController;
