@@ -35,6 +35,8 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.1.2",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.5",
