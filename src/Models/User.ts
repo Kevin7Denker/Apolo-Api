@@ -9,6 +9,7 @@ const Profile = new Schema(
     email: { type: String, required: true },
     phone: { type: String, required: true },
     password: { type: String, required: true },
+    image: { type: String, default: {}, required: true },
     lastLogin: { type: Date, default: Date.now(), required: true },
     lastUpdate: { type: Date, default: Date.now(), required: true },
     dateCriation: { type: Date, default: Date.now(), required: true },
