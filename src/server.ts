@@ -24,7 +24,7 @@ app.options("*", cors());
 
 app.use("/", publicRoutes);
 app.use("/auth", authRoutes);
-app.use("/user");
+app.use("/user", userRoutes);
 
 mongoose
   .connect(
