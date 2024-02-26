@@ -31,6 +31,5 @@ mongoose
   .then(() => {
     app.listen(port);
     console.log("\n Connected to server");
-    console.log(`\n Utilize a Url: http://localhost:${port}`);
   })
   .catch((error) => console.log("Erro: " + error));
