@@ -1,6 +1,6 @@
 import UserRepository from "../Repository/User_Repository";
 import { Request, Response, response } from "express";
-import { validEmail, validName } from "../Utils/Label_Validation";
+
 import User from "../Models/User";
 
 class UserController {
@@ -12,19 +12,6 @@ class UserController {
 
   public async signUp(req: Request, res: Response) {
     const { name, surname, email, phone, password, confirmPassword } = req.body;
-    let result;
-
-    if ((result = validName(name))) {
-      return res.status(422).json(result);
-    }
-
-    if ((result = validName(surname))) {
-      return res.status(422).json(result);
-    }
-
-    if ((result = validEmail(email))) {
-      return res.status(422).json(result);
-    }
 
     if (!phone) {
       return res.status(422).json({ msg: "The phone field is required" });

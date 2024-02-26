@@ -8,6 +8,9 @@ const route = express.Router();
 const userRepository = new UserRepository();
 const userController = new UserController(userRepository);
 
+route.get("/", (req, res) => {
+  res.send("Auth!");
+});
 route.post("/signup", (req, res) => userController.signUp(req, res));
 route.post("/signin", AuthMiddleWare.checkEmail, (req, res) =>
   userController.signIn(req, res)
