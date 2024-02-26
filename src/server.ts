@@ -22,5 +22,6 @@ app.options("*", cors());
 app.use("/", publicRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use(express.static("public"));
 
 app.listen(port);
