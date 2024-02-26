@@ -2,7 +2,7 @@
   "name": "apolo-api",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",
     "build": "tsc",
