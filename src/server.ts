@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 
 import publicRoutes from "./Routes/Public_Route";
 import authRoutes from "./Routes/Auth_Route";
+import userRoutes from "./Routes/User_Route";
 
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -23,6 +24,7 @@ app.options("*", cors());
 
 app.use("/", publicRoutes);
 app.use("/auth", authRoutes);
+app.use("/user");
 
 mongoose
   .connect(

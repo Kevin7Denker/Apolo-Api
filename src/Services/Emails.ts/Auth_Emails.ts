@@ -19,7 +19,7 @@ export async function SignUpEmail(email: string, token: string) {
 
   resend.emails.send({
     from: "onboarding@resend.dev",
-    to: email,
+    to: "oficialdenker@gmail.com",
     subject: "Please verify your email address",
     html: html,
   });
