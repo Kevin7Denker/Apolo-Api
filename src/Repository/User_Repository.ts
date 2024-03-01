@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import User from "../Models/User";
+import User from "../Models/User_Models/User";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 import { AnyObject } from "mongoose";
@@ -49,8 +49,12 @@ class UserRepository {
       }
 
       return userWP;
-    } catch (error) {
-      console.error("Error creating user:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { error: error.message };
+      } else {
+        return { error: "Erro desconhecido" };
+      }
     }
   }
 
