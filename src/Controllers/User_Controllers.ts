@@ -1,7 +1,7 @@
 import UserRepository from "../Repository/User_Repository";
 import { Request, Response, response } from "express";
 
-import User from "../Models/User";
+import User from "../Models/User_Models/User";
 
 class UserController {
   private userRepository: UserRepository;
