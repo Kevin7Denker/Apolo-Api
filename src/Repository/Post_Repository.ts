@@ -14,12 +14,12 @@ class PostRepository {
     artistId: string
   ) {
     try {
-      const date = Date.now();
       const post = new Post({
-        title,
-        text,
-        aval,
-        date,
+        data: {
+          title: title,
+          text: text,
+          aval: aval,
+        },
         userId,
         musicId,
         artistId,
