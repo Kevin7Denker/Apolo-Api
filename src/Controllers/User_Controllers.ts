@@ -1,4 +1,3 @@
-import UserValidation from "../Utils/Validation/User_Validation";
 import UserRepository from "../Repository/User_Repository";
 
 import User from "../Models/User";
@@ -8,11 +7,9 @@ import { SignUpRequest } from "../Interface/Requests/User_Request";
 
 class UserController {
   private userRepository: UserRepository;
-  private userValidation: UserValidation;
 
-  constructor(userRepository: UserRepository, userValidation: UserValidation) {
+  constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
-    this.userValidation = userValidation;
   }
 
   public async signUp(req: Request, res: Response) {
@@ -27,15 +24,6 @@ class UserController {
 
     try {
       const user = await User.findOne({ "profile.email": email });
-
-      this.userValidation.vefName(name, res);
-      this.userValidation.vefSurname(surname, res);
-      this.userValidation.vefEmail(email, res);
-      this.userValidation.vefPhone(phone, res);
-      this.userValidation.vefPassword(password, res);
-      this.userValidation.vefConfirmPassword(confirmPassword, res);
-      this.userValidation.vefUser(typeof user, res);
-      this.userValidation.vefEquals(password, confirmPassword, res);
 
       const response = await this.userRepository.signUp(
         name,
