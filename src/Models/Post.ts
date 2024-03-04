@@ -12,14 +12,11 @@ const Data = new Schema(
   { _id: false }
 );
 
-const Post = new Schema(
-  {
-    userId: { type: Schema.Types.ObjectId, required: true },
-    data: { type: Data, default: {}, required: true },
-    musicId: { type: Schema.Types.ObjectId, required: true },
-    artistId: { type: Schema.Types.ObjectId, required: true },
-  },
-  { _id: false }
-);
+const Post = new Schema({
+  userId: { type: Schema.Types.ObjectId, required: true },
+  data: { type: Data, default: {}, required: true },
+  musicId: { type: Schema.Types.ObjectId, required: true },
+  artistId: { type: Schema.Types.ObjectId, required: true },
+});
 
 export default mongoose.model("Post", Post);
