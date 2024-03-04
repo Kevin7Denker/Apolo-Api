@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import Artist from "./Artist";
-import Music from "./Music";
 
 const Schema = mongoose.Schema;
 
@@ -16,10 +14,10 @@ const Data = new Schema(
 
 const Post = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User" },
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     data: { type: Data, default: {}, required: true },
-    music: { type: Music, default: {}, required: true },
-    artist: { type: Artist, default: {}, required: true },
+    musicId: { type: Schema.Types.ObjectId, ref: "Music", required: true },
+    artistId: { type: Schema.Types.ObjectId, ref: "Artist", required: true },
   },
   { _id: false }
 );

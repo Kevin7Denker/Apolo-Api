@@ -10,7 +10,7 @@ class PostController {
   }
 
   public async sendPost(req: Request, res: Response) {
-    const { title, text, aval, userId, music, artist } = req.body;
+    const { title, text, aval, userId, musicId, artistId } = req.body;
 
     try {
       await this.postRepository.sendPost(
@@ -18,8 +18,8 @@ class PostController {
         text,
         aval,
         userId,
-        music,
-        artist
+        musicId,
+        artistId
       );
 
       res.status(201).json({ success: true, message: "Post Created" });
