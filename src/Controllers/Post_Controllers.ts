@@ -10,14 +10,14 @@ class PostController {
   }
 
   public async sendPost(req: Request, res: Response) {
-    const { title, text, aval, user, music, artist } = req.body;
+    const { title, text, aval, userId, music, artist } = req.body;
 
     try {
       await this.postRepository.sendPost(
         title,
         text,
         aval,
-        user,
+        userId,
         music,
         artist
       );
