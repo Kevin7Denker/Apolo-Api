@@ -8,7 +8,7 @@ class PostRepository {
   public async sendPost(
     title: string,
     text: string,
-    aval: string,
+    aval: number,
     userId: string,
     musicId: string,
     artistId: string
