@@ -14,10 +14,10 @@ const Data = new Schema(
 
 const Post = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    userId: { type: Schema.Types.ObjectId, required: true },
     data: { type: Data, default: {}, required: true },
-    musicId: { type: Schema.Types.ObjectId, ref: "Music", required: true },
-    artistId: { type: Schema.Types.ObjectId, ref: "Artist", required: true },
+    musicId: { type: Schema.Types.ObjectId, required: true },
+    artistId: { type: Schema.Types.ObjectId, required: true },
   },
   { _id: false }
 );
