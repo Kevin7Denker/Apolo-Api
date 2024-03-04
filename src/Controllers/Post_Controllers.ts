@@ -13,7 +13,7 @@ class PostController {
     const { title, text, aval, userId, musicId, artistId } = req.body;
 
     try {
-      await this.postRepository.sendPost(
+      const response = await this.postRepository.sendPost(
         title,
         text,
         aval,
@@ -22,7 +22,9 @@ class PostController {
         artistId
       );
 
-      res.status(201).json({ success: true, message: "Post Created" });
+      res
+        .status(201)
+        .json({ success: true, message: "Post Created", post: response });
     } catch (error: unknown) {
       if (error instanceof Error) {
         res.status(404).json({
