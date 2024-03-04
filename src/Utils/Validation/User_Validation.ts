@@ -46,7 +46,7 @@ class UserValidation {
   }
   public vefUser(value: string, res: Response) {
     if (value != null) {
-      return res.status(422).json({ msg: "User Already exists" + value });
+      return res.status(422).json({ msg: "User Already exists" });
     }
   }
 }
