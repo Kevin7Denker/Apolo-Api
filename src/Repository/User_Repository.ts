@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import User from "../Models/User_Models/User";
+import User from "../Models/User";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 import { AnyObject } from "mongoose";

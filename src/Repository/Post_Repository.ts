@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import Post from "../Models/Post";
 import Artist from "../Models/Artist";
 import Music from "../Models/Music";
-import simpleUser from "../Models/User_Models/SimpleUser";
 dotenv.config();
 
 class PostRepository {
@@ -11,13 +10,13 @@ class PostRepository {
     title: string,
     text: string,
     aval: string,
-    user: typeof simpleUser,
+    userId: string,
     music: typeof Music,
     artist: typeof Artist
   ) {
     try {
       const date = Date.now();
-      const post = new Post({ title, text, aval, date, user, music, artist });
+      const post = new Post({ title, text, aval, date, userId, music, artist });
 
       post.save();
 
