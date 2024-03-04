@@ -30,7 +30,11 @@ app.use("/post", postRoute);
 
 mongoose
   .connect(
-    `mongodb+srv://${dbUser}:${dbPass}@cluster.irye11p.mongodb.net/${dbName}?retryWrites=true&w=majority`
+    `mongodb+srv://${dbUser}:${dbPass}@cluster.irye11p.mongodb.net/${dbName}?retryWrites=true&w=majority`,
+    {
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    }
   )
   .then(() => {
     app.listen(port);
