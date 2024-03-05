@@ -32,11 +32,10 @@
     "npm": "^10.4.0",
     "resend": "^3.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "mongodb": "^6.3.0",
-    "mongoose": "^8.1.2",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.5",
@@ -44,6 +43,8 @@
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
     "eslint": "^8.56.0",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.1.2",
     "nodemon": "^3.0.2"
   }
 }

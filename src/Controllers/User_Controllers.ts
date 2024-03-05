@@ -1,9 +1,9 @@
 import UserRepository from "../Repository/User_Repository";
 
 import User from "../Models/User";
+import { z } from "zod";
 
 import { Request, Response } from "express";
-import { SignUpRequest } from "../Interface/Requests/User_Request";
 
 class UserController {
   private userRepository: UserRepository;
@@ -13,17 +13,28 @@ class UserController {
   }
 
   public async signUp(req: Request, res: Response) {
-    const {
-      name,
-      surname,
-      email,
-      phone,
-      password,
-      confirmPassword,
-    }: SignUpRequest = req.body;
-
     try {
+      const createUserBodySchema = z.object({
+        name: z.string(),
+        surname: z.string(),
+        email: z.string().email(),
+        phone: z.string(),
+        password: z.string(),
+        confirmPassword: z.string(),
+      });
+
+      const { name, surname, email, phone, password, confirmPassword } =
+        createUserBodySchema.parse(req.body);
+
       const user = await User.findOne({ "profile.email": email });
+
+      if (user != null) {
+        throw new Error("User Already Exists");
+      }
+
+      if (password !== confirmPassword) {
+        throw new Error("The passwords need be equals");
+      }
 
       const response = await this.userRepository.signUp(
         name,
@@ -58,9 +69,6 @@ class UserController {
     const { email, password } = req.body;
 
     try {
-      this.userValidation.vefEmail(email, res);
-      this.userValidation.vefPassword(password, res);
-
       const response = await this.userRepository.signIn(email, password);
 
       if (response.error) {
