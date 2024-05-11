@@ -19,8 +19,8 @@ class UserController {
         surname: z.string(),
         email: z.string().email(),
         phone: z.string(),
-        password: z.string(),
-        confirmPassword: z.string(),
+        password: z.string().min(6),
+        confirmPassword: z.string().min(6),
       });
 
       const { name, surname, email, phone, password, confirmPassword } =
@@ -66,9 +66,14 @@ class UserController {
   }
 
   public async signIn(req: Request, res: Response) {
-    const { email, password } = req.body;
-
     try {
+      const createUserBodySchema = z.object({
+        email: z.string().email(),
+        password: z.string().min(6),
+      });
+
+      const { email, password } = createUserBodySchema.parse(req.body);
+
       const response = await this.userRepository.signIn(email, password);
 
       if (response.error) {
