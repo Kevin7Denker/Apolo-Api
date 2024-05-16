@@ -51,7 +51,7 @@ class UserController {
       res.status(201).json({
         success: true,
         msg: "SignUp Successfully",
-        data: [response],
+        items: [response],
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -83,7 +83,7 @@ class UserController {
       res.status(200).json({
         success: true,
         msg: "SignIn Successfully",
-        data: [response],
+        items: [response],
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
