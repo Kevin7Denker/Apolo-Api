@@ -17,6 +17,8 @@ export async function SignUpEmail(email: string, token: string) {
     verificationLink: `https://apolo-api.onrender.com/auth/verify-email=${token}`,
   });
 
+  console.log(email);
+
   resend.emails.send({
     from: "onboarding@resend.dev",
     to: `${email}`,
