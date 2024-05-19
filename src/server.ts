@@ -14,7 +14,7 @@ const dbUser = process.env.DB_USER;
 const dbPass = process.env.DB_PASSWORD;
 const dbName = process.env.DB_NAME;
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 10000;
 
 const app = express();
 app.use(cors());
