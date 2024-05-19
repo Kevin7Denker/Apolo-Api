@@ -20,7 +20,7 @@ export async function SignUpEmail(email: string, token: string) {
   console.log(email);
 
   resend.emails.send({
-    from: "apolo@resend.com",
+    from: "apolo@kvdenker.me",
     to: `${email}`,
     subject: "Please verify your email address",
     html: html,
