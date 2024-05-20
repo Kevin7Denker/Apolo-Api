@@ -1,6 +1,7 @@
 import UserRepository from "../Repository/User_Repository";
 
 import User from "../Models/User";
+
 import { z } from "zod";
 
 import { Request, Response } from "express";
@@ -111,10 +112,9 @@ class UserController {
         throw new Error(response.error);
       }
 
-      return res.status(200).json({
-        success: true,
-        msg: response.msg,
-      });
+      const WelcomeMail = "../Templates/Emails/Email_Welcome.html";
+
+      return res.status(200).sendFile(WelcomeMail);
     } catch (error: unknown) {
       if (error instanceof Error) {
         res.status(404).json({
