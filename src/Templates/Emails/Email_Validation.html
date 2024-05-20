@@ -4,16 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Please verify your email address</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        height: 100svh;
-      }
-
-      .container {
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      height: 100svh;
+    "
+  >
+    <div
+      style="
         width: 100%;
         max-width: 600px;
         margin: 0 auto;
@@ -22,47 +24,30 @@
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin-top: 30px;
-      }
-
-      .logo {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-
-      .logo img {
-        width: 150px;
-        height: auto;
-      }
-
-      .verification-text {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #333;
-      }
-
-      .button-container {
-        text-align: center;
-      }
-
-      .verification-button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        text-decoration: none;
-        color: #ffffff;
-        background-color: #800080; /* Cor roxa */
-        border-radius: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="logo"><iframe</div>
-      <div class="verification-text">
+      "
+    >
+      <div style="text-align: center; margin-bottom: 20px">
+        <!-- Logo image can be added here -->
+      </div>
+      <div style="text-align: center; margin-bottom: 20px; color: #333">
         <h2>Please verify your email address</h2>
       </div>
-      <a class="verification-button" href="<%= verificationLink %>">
-        <div class="button-container">verify</div>
+      <a href="<%= verificationLink %>" style="text-decoration: none">
+        <div style="text-align: center">
+          <div
+            style="
+              display: inline-block;
+              padding: 10px 20px;
+              font-size: 16px;
+              text-decoration: none;
+              color: #ffffff;
+              background-color: #800080;
+              border-radius: 5px;
+            "
+          >
+            Verify
+          </div>
+        </div>
       </a>
     </div>
   </body>
