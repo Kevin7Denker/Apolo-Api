@@ -10,22 +10,31 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        background-color: #f0f0f0;
+        height: 100svh;
+        background-color: rgb(25, 25, 25);
         margin: 0;
       }
       .container {
         text-align: center;
+        display: flex;
+        justify-content: center;
         background-color: #fff;
-        padding: 20px;
+        flex-direction: column;
+        width: 30svw;
+        height: 25svh;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
       h1 {
-        color: #4caf50;
+        color: #7b2cbf;
       }
       p {
         color: #555;
+        font-weight: 600;
+      }
+      a {
+        text-decoration: none;
+        color: #7b2cbf;
       }
     </style>
   </head>
@@ -33,6 +42,7 @@
     <div class="container">
       <h1>Email Verified</h1>
       <p>Welcome to Apolo</p>
+      <p>Go to <a href="https://apolo.kvdenker.me">Sign In!</a></p>
     </div>
   </body>
 </html>
