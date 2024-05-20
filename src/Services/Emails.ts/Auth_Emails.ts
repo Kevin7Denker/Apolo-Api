@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 
 import * as dotenv from "dotenv";
-dotenv.config;
+dotenv.config();
 
 export async function SignUpEmail(email: string, token: string) {
   const templatePath = path.join(
@@ -17,10 +17,8 @@ export async function SignUpEmail(email: string, token: string) {
     verificationLink: `https://apolo-api.onrender.com/auth/verify-email=${token}`,
   });
 
-  console.log(email);
-
   resend.emails.send({
-    from: "apolo@kvdenker.me",
+    from: `${process.env.RESEND_EMAIL}`,
     to: `${email}`,
     subject: "Please verify your email address",
     html: html,
