@@ -1,6 +1,7 @@
 import UserRepository from "../Repository/User_Repository";
 
 import User from "../Models/User";
+import path from "path";
 
 import { z } from "zod";
 
@@ -112,7 +113,13 @@ class UserController {
         throw new Error(response.error);
       }
 
-      const WelcomeMail = "../Templates/Emails/Email_Welcome.html";
+      const WelcomeMail = path.join(
+        __dirname,
+        "..",
+        "Templates",
+        "Emails",
+        "Email_Welcome.html"
+      );
 
       return res.status(200).sendFile(WelcomeMail);
     } catch (error: unknown) {
