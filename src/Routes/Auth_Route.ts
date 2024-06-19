@@ -1,17 +1,19 @@
 import express from "express";
-import UserController from "../Controllers/User_Controllers";
-import UserRepository from "../Repository/User_Repository";
+
+import AuthRepository from "../Repository/Auth_Repository";
+import AuthController from "../Controllers/Auth_Controllers";
 
 const route = express.Router();
 
-const userRepository = new UserRepository();
-const userController = new UserController(userRepository);
+const authRepository = new AuthRepository();
+const authController = new AuthController(authRepository);
 
-route.post("/signup", (req, res) => userController.signUp(req, res));
-route.post("/signin", (req, res) => userController.signIn(req, res));
+route.post("/signup", (req, res) => authController.signUp(req, res));
+route.post("/signin", (req, res) => authController.signIn(req, res));
 
 route.get("/verify-email=:token", (req, res) =>
-  userController.valEmail(req, res)
+  authController.valEmail(req, res)
 );
 
+route.get("/verify-email/resend=:token");
 export default route;
