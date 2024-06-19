@@ -13,93 +13,86 @@
       background-color: #f0f0f0;
     "
   >
-    <table
-      width="80%"
-      align="center"
-      bgcolor="#5a189a"
+    <div
       style="
+        background-color: #5a189a;
+        width: 80%;
         max-width: 600px;
+        margin: 0 auto;
+        padding: 1%;
+        align-items: center;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin-top: 30px;
       "
     >
-      <tr>
-        <td style="text-align: center; padding: 1%">
-          <img
-            src="../../Assets/Images/Logos/Logo.png"
-            alt="Apolo Logo"
-            style="width: 100px"
-          />
-        </td>
-      </tr>
-    </table>
-
-    <table
-      width="80%"
-      align="center"
-      bgcolor="#ffffff"
+      <div style="text-align: center">
+        <img
+          src="../../Assets/Images/Logos/Logo.png"
+          alt="Apolo Logo"
+          style="width: 100px"
+        />
+      </div>
+    </div>
+    <div
       style="
+        width: 80%;
         max-width: 600px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-top: 30px;
+        align-items: center;
+        gap: 10px;
+        background-color: #ffffff;
+        margin: 0 auto;
         padding: 3% 1%;
-      "
-    >
-      <tr>
-        <td style="text-align: center; color: #333">
-          <h2>Please verify your email address</h2>
-        </td>
-      </tr>
-      <tr>
-        <td style="text-align: center">
-          <a href="<%= verificationLink %>" style="text-decoration: none">
-            <div
-              style="
-                display: inline-block;
-                padding: 10px 20px;
-                font-size: 16px;
-                text-decoration: none;
-                color: #ffffff;
-                background-color: #7b2cbf;
-                border-radius: 5px;
-              "
-            >
-              Verify
-            </div>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td style="text-align: center">
-          <p style="font-size: 12px; text-align: center; font-weight: 500">
-            This email was sent to you because you signed up for an account on
-            Apolo. If you did not sign up for an account, please ignore this
-            email.
-          </p>
-        </td>
-      </tr>
-    </table>
-
-    <table
-      width="80%"
-      align="center"
-      bgcolor="#5a189a"
-      style="
-        max-width: 600px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin-top: 30px;
       "
     >
-      <tr>
-        <td style="text-align: center; padding: 1%">
-          <p style="font-size: 12px; color: #ffffff">
-            Copyright © Kevin Denker. All rights reserved.
-          </p>
-        </td>
-      </tr>
-    </table>
+      <div style="text-align: center; color: #333">
+        <h2>Please verify your email address</h2>
+      </div>
+      <a href="<%= verificationLink %>" style="text-decoration: none">
+        <div style="text-align: center">
+          <div
+            style="
+              display: inline-block;
+              padding: 10px 20px;
+              font-size: 16px;
+              text-decoration: none;
+              color: #ffffff;
+              background-color: #7b2cbf;
+              border-radius: 5px;
+            "
+          >
+            Verify
+          </div>
+        </div>
+      </a>
+      <div style="width: 80%; align-items: center; margin: 0 auto">
+        <p style="font-size: 12px; text-align: center; font-weight: 500">
+          This email was sent to you because you signed up for an account on
+          Apolo. If you did not sign up for an account, please ignore this
+          email.
+        </p>
+      </div>
+    </div>
+    <div
+      style="
+        background-color: #5a189a;
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 1%;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+      "
+    >
+      <div style="text-align: center">
+        <p style="font-size: 12px; color: #ffffff">
+          Copyright © 2024 Kevin Denker. All rights reserved.
+        </p>
+      </div>
+    </div>
   </body>
 </html>
