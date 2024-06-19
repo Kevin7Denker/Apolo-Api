@@ -35,7 +35,7 @@ class AuthRepository {
         throw new Error("The secret is not defined");
       }
 
-      const valToken = jwt.sign({ id: user._id }, secret, { expiresIn: "10m" });
+      const valToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
 
       SignUpEmail(email, valToken);
 
@@ -123,6 +123,26 @@ class AuthRepository {
         return { error: "Erro desconhecido" };
       }
     }
+  }
+
+  public async resendValEmail(expiredToken: string) {
+    const secret = process.env.SECRET;
+
+    if (secret == null) {
+      throw new Error("The secret is not defined");
+    }
+
+    const verify: string | JwtPayload = jwt.verify(expiredToken, secret);
+    const jwtVerify = verify as JwtPayload;
+    const user = await User.findById({ _id: jwtVerify.id });
+
+    if (user == null) {
+      throw new Error("User not found");
+    }
+
+    const newToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
+
+    SignUpEmail(user.profile.email, newToken);
   }
 }
 
