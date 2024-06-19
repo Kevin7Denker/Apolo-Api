@@ -14,7 +14,8 @@ export async function SignUpEmail(email: string, token: string) {
   const templateContent = fs.readFileSync(templatePath, "utf-8");
 
   const html = await ejs.render(templateContent, {
-    verificationLink: `https://apolo-api.onrender.com/auth/verify-email=${token}`,
+    verificationLink:
+      "https://apolo-api.onrender.com/auth/verify-email" + token,
   });
 
   resend.emails.send({
