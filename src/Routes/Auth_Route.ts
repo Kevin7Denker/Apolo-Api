@@ -18,7 +18,7 @@ route.get("/verify-email/:token", (req, res) =>
 route.get("/verify-email/error/:token", (req, res) =>
   authController.errorValEmail(req, res)
 );
-route.gets("/verify-email/resend/:token", (req, res) =>
+route.get("/verify-email/resend/:token", (req, res) =>
   authController.resendValEmail(req, res)
 );
 
