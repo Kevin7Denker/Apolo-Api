@@ -11,8 +11,10 @@ const authController = new AuthController(authRepository);
 route.post("/signup", (req, res) => authController.signUp(req, res));
 route.post("/signin", (req, res) => authController.signIn(req, res));
 
-route.get("/verify-email", (req, res) => authController.valEmail(req, res));
+route.post("/verify-email", (req, res) => authController.valEmail(req, res));
 
-//route.get("/verify-email/resend", (req, res) =>);
+route.post("/verify-email/resend", (req, res) =>
+  authController.resendValEmail(req, res)
+);
 
 export default route;
