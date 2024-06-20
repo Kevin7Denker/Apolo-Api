@@ -3,6 +3,8 @@ import AuthRepository from "../Repository/Auth_Repository";
 
 import { z } from "zod";
 import path from "path";
+import ejs from "ejs";
+import fs from "fs";
 import User from "../Models/User";
 
 class AuthController {
@@ -139,13 +141,20 @@ class AuthController {
     }
 
     try {
-      const html = await this.authRepository.errorEmail(token);
+      const templatePath = path.join(
+        __dirname,
+        "../../Templates/Emails/Email_NotVerified.html"
+      );
+      const templateContent = fs.readFileSync(templatePath, "utf-8");
 
-      return res.status(200).sendFile(String(html));
+      const html = await ejs.render(templateContent, {
+        verificationLink: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
+      });
+      return res.status(200).sendFile(html);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        console.log(token);
         return res.status(400).json({
+          token: { token },
           error: "Verification failed.",
         });
       } else {
