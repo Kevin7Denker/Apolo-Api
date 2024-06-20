@@ -139,17 +139,25 @@ class AuthRepository {
       throw new Error("Token not found");
     }
 
-    const templatePath = path.join(
-      __dirname,
-      "../../Templates/Emails/Email_NotVerified.html"
-    );
-    const templateContent = fs.readFileSync(templatePath, "utf-8");
+    try {
+      const templatePath = path.join(
+        __dirname,
+        "../../Templates/Emails/Email_NotVerified.html"
+      );
+      const templateContent = fs.readFileSync(templatePath, "utf-8");
 
-    const html = await ejs.render(templateContent, {
-      verificationLink: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
-    });
+      const html = await ejs.render(templateContent, {
+        verificationLink: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
+      });
 
-    return html;
+      return html;
+    } catch (error) {
+      if (error instanceof Error) {
+        return { error: `${error.message}` };
+      } else {
+        return { error: "Erro desconhecido" };
+      }
+    }
   }
 
   public async resendValEmail(expiredToken: string) {

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import AuthRepository from "../Repository/Auth_Repository";
+
+import { z } from "zod";
 import path from "path";
 import User from "../Models/User";
-import fs from "fs";
-import { z } from "zod";
 
 class AuthController {
   private authRepository: AuthRepository;
@@ -141,10 +141,7 @@ class AuthController {
     try {
       const html = await this.authRepository.errorEmail(token);
 
-      const tempFilePath = path.join(__dirname, "../../temp/errorEmail.html");
-      fs.writeFileSync(tempFilePath, html);
-
-      return res.status(200).sendFile(tempFilePath);
+      return res.status(200).sendFile(String(html));
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.status(400).json({
