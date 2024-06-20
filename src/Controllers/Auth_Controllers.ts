@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import AuthRepository from "../Repository/Auth_Repository";
 import path from "path";
 import User from "../Models/User";
+import fs from "fs";
 import { z } from "zod";
 
 class AuthController {
@@ -140,7 +141,10 @@ class AuthController {
     try {
       const html = await this.authRepository.errorEmail(token);
 
-      return res.sendFile(html);
+      const tempFilePath = path.join(__dirname, "../../temp/errorEmail.html");
+      fs.writeFileSync(tempFilePath, html);
+
+      return res.status(200).sendFile(tempFilePath);
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.status(400).json({
