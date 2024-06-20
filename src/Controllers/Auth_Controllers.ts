@@ -140,11 +140,11 @@ class AuthController {
     try {
       const html = await this.authRepository.errorEmail(token);
 
-      res.sendFile(html);
+      return res.sendFile(html);
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.status(400).json({
-          error: "Verification failed. Please try again.",
+          error: "Verification failed.",
         });
       } else {
         return { error: "Unknown Error" };
