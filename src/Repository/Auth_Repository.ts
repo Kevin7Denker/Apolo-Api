@@ -167,17 +167,25 @@ class AuthRepository {
       throw new Error("The secret is not defined");
     }
 
-    const verify: string | JwtPayload = jwt.verify(expiredToken, secret);
-    const jwtVerify = verify as JwtPayload;
-    const user = await User.findById({ _id: jwtVerify.id });
+    try {
+      const verify: string | JwtPayload = jwt.verify(expiredToken, secret);
+      const jwtVerify = verify as JwtPayload;
+      const user = await User.findById({ _id: jwtVerify.id });
 
-    if (user == null) {
-      throw new Error("User not found");
+      if (user == null) {
+        throw new Error("User not found");
+      }
+
+      const newToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
+
+      SignUpEmail(user.profile.email, newToken);
+    } catch (error) {
+      if (error instanceof Error) {
+        return { error: `${error.message}` };
+      } else {
+        return { error: "Erro desconhecido" };
+      }
     }
-
-    const newToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
-
-    SignUpEmail(user.profile.email, newToken);
   }
 }
 
