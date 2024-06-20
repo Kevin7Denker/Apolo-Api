@@ -144,6 +144,7 @@ class AuthController {
       return res.status(200).sendFile(String(html));
     } catch (error: unknown) {
       if (error instanceof Error) {
+        console.log(token);
         return res.status(400).json({
           error: "Verification failed.",
         });
