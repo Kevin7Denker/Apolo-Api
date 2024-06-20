@@ -168,6 +168,8 @@ class AuthRepository {
     }
 
     try {
+      console.log(expiredToken);
+
       const verify: string | JwtPayload = jwt.verify(expiredToken, secret);
       const jwtVerify = verify as JwtPayload;
       const user = await User.findById({ _id: jwtVerify.id });
@@ -175,6 +177,8 @@ class AuthRepository {
       if (user == null) {
         throw new Error("User not found");
       }
+
+      console.log(user.profile.email);
 
       const newToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
 
