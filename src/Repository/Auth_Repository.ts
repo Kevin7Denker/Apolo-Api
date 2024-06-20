@@ -4,6 +4,9 @@ import bcrypt from "bcrypt";
 import { AnyObject } from "mongoose";
 import { SignUpEmail } from "../Services/Emails.ts/Auth_Emails";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import ejs from "ejs";
+import fs from "fs";
+import path from "path";
 
 class AuthRepository {
   public async signUp(
@@ -123,6 +126,30 @@ class AuthRepository {
         return { error: "Erro desconhecido" };
       }
     }
+  }
+
+  public async errorEmail(token: string) {
+    const secret = process.env.SECRET;
+
+    if (secret == null) {
+      throw new Error("The secret is not defined");
+    }
+
+    if (!token) {
+      throw new Error("Token not found");
+    }
+
+    const templatePath = path.join(
+      __dirname,
+      "../../Templates/Emails/Email_NotVerified.html"
+    );
+    const templateContent = fs.readFileSync(templatePath, "utf-8");
+
+    const html = await ejs.render(templateContent, {
+      verificationLink: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
+    });
+
+    return html;
   }
 
   public async resendValEmail(expiredToken: string) {
