@@ -121,14 +121,35 @@ class AuthController {
       return res.status(200).sendFile(WelcomeMail);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        const ErrorMail = path.join(
-          __dirname,
-          "..",
-          "Templates",
-          "Emails",
-          "Email_NotVerified.html"
-        );
-        return res.status(200).sendFile(ErrorMail);
+        return res.status(400).json({
+          error: "Verification failed. Please try again.",
+          route: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
+        });
+      } else {
+        return { error: "Unknown Error" };
+      }
+    }
+  }
+
+  resendValEmail(req: Request, res: Response) {
+    const Expiredtoken = req.params.token;
+
+    if (!Expiredtoken) {
+      res.status(422).json({ error: "Token invalid" });
+    }
+
+    try {
+      this.authRepository.resendValEmail(Expiredtoken);
+
+      res.status(200).json({
+        success: true,
+        msg: "Email Resend Successfully",
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return res.status(400).json({
+          error: "Verification failed. Please try again.",
+        });
       } else {
         return { error: "Unknown Error" };
       }
