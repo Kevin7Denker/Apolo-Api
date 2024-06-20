@@ -121,9 +121,30 @@ class AuthController {
       return res.status(200).sendFile(WelcomeMail);
     } catch (error: unknown) {
       if (error instanceof Error) {
+        return res.redirect(
+          `https://apolo-api.onrender.com/auth/verify-email/error/${token}`
+        );
+      } else {
+        return { error: "Unknown Error" };
+      }
+    }
+  }
+
+  public async errorValEmail(req: Request, res: Response) {
+    const token = req.params.token;
+
+    if (!token) {
+      res.status(422).json({ error: "Token invalid" });
+    }
+
+    try {
+      const html = await this.authRepository.errorEmail(token);
+
+      res.sendFile(html);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
         return res.status(400).json({
           error: "Verification failed. Please try again.",
-          route: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
         });
       } else {
         return { error: "Unknown Error" };
@@ -131,7 +152,7 @@ class AuthController {
     }
   }
 
-  resendValEmail(req: Request, res: Response) {
+  public async resendValEmail(req: Request, res: Response) {
     const Expiredtoken = req.params.token;
 
     if (!Expiredtoken) {
