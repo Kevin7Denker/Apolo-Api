@@ -141,19 +141,20 @@ class AuthController {
     }
 
     try {
-      /*const templatePath = path.join(
+      const templatePath = path.join(
         __dirname,
-        "../../Templates/Emails/Email_NotVerified.html"
+        "..",
+        "Templates",
+        "Emails",
+        "Email_NotVerified.html"
       );
       const templateContent = fs.readFileSync(templatePath, "utf-8");
 
       const html = await ejs.render(templateContent, {
         verificationLink: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
       });
-      return res.status(200).sendFile(html);*/
 
-      const response = await this.authRepository.errorEmail(token);
-      return res.status(200).json(response);
+      res.status(200).send(html);
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.status(400).json({
