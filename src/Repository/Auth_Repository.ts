@@ -172,9 +172,12 @@ class AuthRepository {
 
       const verify: string | JwtPayload = jwt.verify(expiredToken, secret);
       const jwtVerify = verify as JwtPayload;
-      const user = await User.findById({ _id: jwtVerify.id });
 
-      if (user == null) {
+      const userId = jwtVerify.id;
+
+      const user = await User.findOne({ "profile.email": userId });
+
+      if (!user) {
         throw new Error("User not found");
       }
 
