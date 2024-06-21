@@ -168,7 +168,7 @@ class AuthRepository {
     }
 
     try {
-      console.log(expiredToken);
+      console.log("entrada no repositorio:" + expiredToken);
 
       const verify: string | JwtPayload = jwt.verify(expiredToken, secret);
       const jwtVerify = verify as JwtPayload;

@@ -175,12 +175,12 @@ class AuthController {
     }
 
     try {
-      const response = this.authRepository.resendValEmail(Expiredtoken);
+      console.log("ExpiredToken at resendValEmail" + Expiredtoken);
+      this.authRepository.resendValEmail(Expiredtoken);
 
       res.status(200).json({
         success: true,
         msg: "Email Resend Successfully",
-        data: response,
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
