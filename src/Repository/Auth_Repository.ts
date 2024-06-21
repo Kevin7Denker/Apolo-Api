@@ -170,22 +170,11 @@ class AuthRepository {
     try {
       console.log("entrada no repositorio:" + expiredToken);
 
-      const verify: string | JwtPayload = jwt.verify(expiredToken, secret);
-      const jwtVerify = verify as JwtPayload;
+      const verify = jwt.decode(expiredToken);
 
-      const userId = jwtVerify.id;
+      console.log("User:" + verify);
 
-      const user = await User.findOne({ "profile.email": userId });
-
-      if (!user) {
-        throw new Error("User not found");
-      }
-
-      console.log("User:" + user);
-
-      const newToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
-
-      console.log("email:" + user.profile.email, "token:" + newToken);
+      //const newToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
