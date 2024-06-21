@@ -182,7 +182,7 @@ class AuthRepository {
 
       const newToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
 
-      SignUpEmail(user.profile.email, newToken);
+      console.log(user.profile.email, newToken);
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
