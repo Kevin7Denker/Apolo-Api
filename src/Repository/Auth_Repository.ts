@@ -174,8 +174,10 @@ class AuthRepository {
 
       console.log("User:" + verify);
       const userId = verify.id;
-      console.log("User ID:", userId);
-      //const newToken = jwt.sign({ id: userId }, secret, { expiresIn: "30m" });
+
+      const user = await User.findById({ _id: userId });
+
+      console.log(user);
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
