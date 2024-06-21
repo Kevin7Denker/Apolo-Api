@@ -176,8 +176,19 @@ class AuthRepository {
       const userId = verify.id;
 
       const user = await User.findById({ _id: userId });
+      const email = user?.profile.email as string;
 
-      console.log(user);
+      const secret = process.env.SECRET;
+
+      if (secret == null) {
+        throw new Error("The secret is not defined");
+      }
+
+      const valToken = jwt.sign({ id: user?.profile.email }, secret, {
+        expiresIn: "30m",
+      });
+
+      SignUpEmail(email, valToken);
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
