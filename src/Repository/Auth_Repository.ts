@@ -170,11 +170,12 @@ class AuthRepository {
     try {
       console.log("entrada no repositorio:" + expiredToken);
 
-      const verify = jwt.decode(expiredToken);
+      const verify = jwt.decode(expiredToken) as JwtPayload;
 
       console.log("User:" + verify);
-
-      //const newToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
+      const userId = verify.id;
+      console.log("User ID:", userId);
+      //const newToken = jwt.sign({ id: userId }, secret, { expiresIn: "30m" });
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
