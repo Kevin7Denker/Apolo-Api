@@ -178,11 +178,11 @@ class AuthRepository {
         throw new Error("User not found");
       }
 
-      console.log(user.profile.email);
+      console.log("User:" + user);
 
       const newToken = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
 
-      console.log(user.profile.email, newToken);
+      console.log("email:" + user.profile.email, "token:" + newToken);
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
