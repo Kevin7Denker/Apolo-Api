@@ -1,8 +1,4 @@
-import dotenv from "dotenv";
-
 import Post from "../Models/Post";
-
-dotenv.config();
 
 class PostRepository {
   public async sendPost(
