@@ -1,8 +1,5 @@
 import User from "../Models/User";
 
-import * as dotenv from "dotenv";
-dotenv.config();
-
 class UserRepository {
   public async findUser(id: string) {
     try {
