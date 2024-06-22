@@ -1,12 +1,13 @@
-import User from "../Models/User";
-
-import bcrypt from "bcrypt";
-import { AnyObject } from "mongoose";
-import { SignUpEmail } from "../Services/Emails.ts/Auth_Emails";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import ejs from "ejs";
 import fs from "fs";
 import path from "path";
+import bcrypt from "bcrypt";
+import { AnyObject } from "mongoose";
+import jwt, { JwtPayload } from "jsonwebtoken";
+
+import User from "../Models/User";
+import { SignUpEmail } from "../Services/Email/Emails.ts/Auth_Emails";
+import { env } from "../Config/ServerConfig";
 
 class AuthRepository {
   public async signUp(
@@ -32,7 +33,7 @@ class AuthRepository {
 
       user.save();
 
-      const secret = process.env.SECRET;
+      const secret = env.SECRET;
 
       if (secret == null) {
         throw new Error("The secret is not defined");
@@ -72,7 +73,7 @@ class AuthRepository {
         throw new Error("Password Incorrect");
       }
 
-      const secret = process.env.SECRET;
+      const secret = env.SECRET;
 
       if (secret == null) {
         throw new Error("The secret is not defined");
@@ -101,7 +102,7 @@ class AuthRepository {
 
   public async valEmail(token: string) {
     try {
-      const secret = process.env.SECRET;
+      const secret = env.SECRET;
 
       if (secret == null) {
         throw new Error("The secret is not defined");
@@ -129,7 +130,7 @@ class AuthRepository {
   }
 
   public async errorEmail(token: string) {
-    const secret = process.env.SECRET;
+    const secret = env.SECRET;
 
     if (secret == null) {
       throw new Error("The secret is not defined");
@@ -161,7 +162,7 @@ class AuthRepository {
   }
 
   public async resendValEmail(expiredToken: string) {
-    const secret = process.env.SECRET;
+    const secret = env.SECRET;
 
     if (secret == null) {
       throw new Error("The secret is not defined");
@@ -178,7 +179,7 @@ class AuthRepository {
       const user = await User.findById({ _id: userId });
       const email = user?.profile.email as string;
 
-      const secret = process.env.SECRET;
+      const secret = env.SECRET;
 
       if (secret == null) {
         throw new Error("The secret is not defined");
