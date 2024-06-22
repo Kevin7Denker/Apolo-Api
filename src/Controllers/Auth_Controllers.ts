@@ -113,15 +113,15 @@ class AuthController {
         throw new Error(response.error);
       }
 
-      const WelcomeMail = path.join(
+      const Welcome = path.join(
         __dirname,
         "..",
         "Templates",
-        "Emails",
-        "Email_Welcome.html"
+        "Responses",
+        "Response_Welcome.html"
       );
 
-      return res.status(200).sendFile(WelcomeMail);
+      return res.status(200).sendFile(Welcome);
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.redirect(
@@ -145,8 +145,8 @@ class AuthController {
         __dirname,
         "..",
         "Templates",
-        "Emails",
-        "Email_NotVerified.html"
+        "Responses",
+        "Response_NotVerified.html"
       );
       const templateContent = fs.readFileSync(templatePath, "utf-8");
 
