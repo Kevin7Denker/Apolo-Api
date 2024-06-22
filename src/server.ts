@@ -1,25 +1,18 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
 
-import publicRoutes from "./Routes/Public_Route";
-import authRoutes from "./Routes/Auth_Route";
-import userRoutes from "./Routes/User_Route";
-import postRoutes from "./Routes/Post_Route";
-import assetsRoutes from "./Routes/Assets_Route";
+import startServer, { env } from "./Config/ServerConfig";
 
-import * as dotenv from "dotenv";
-dotenv.config();
-
-const dbUser = process.env.DB_USER;
-const dbPass = process.env.DB_PASSWORD;
-const dbName = process.env.DB_NAME;
-
-const port = process.env.PORT || 10000;
+import publicRoutes from "./Routes/Publics/Public_Route";
+import authRoutes from "./Routes/Auth/Auth_Route";
+import userRoutes from "./Routes/Main/User_Route";
+import postRoutes from "./Routes/Main/Post_Route";
+import assetsRoutes from "./Routes/Assets/Images_Route";
 
 const app = express();
-app.use(cors());
+const port = env.PORT || 2612;
 
+app.use(cors());
 app.use(express.json());
 
 app.options("*", cors());
@@ -30,16 +23,10 @@ app.use("/user", userRoutes);
 app.use("/post", postRoutes);
 app.use("/assets", assetsRoutes);
 
-mongoose
-  .connect(
-    `mongodb+srv://${dbUser}:${dbPass}@cluster.irye11p.mongodb.net/${dbName}?retryWrites=true&w=majority`,
-    {
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-    }
-  )
+startServer()
   .then(() => {
     app.listen(port);
-    console.log("\n Connected to server");
   })
-  .catch((error) => console.log("Erro: " + error));
+  .catch((error) => {
+    console.log("Erro: " + error);
+  });
