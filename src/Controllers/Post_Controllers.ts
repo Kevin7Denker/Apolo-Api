@@ -1,4 +1,3 @@
-import { SendPostRequest } from "../Interface/Requests/Post_Request";
 import { Request, Response } from "express";
 
 import PostRepository from "../Repository/Post_Repository";
@@ -11,8 +10,7 @@ class PostController {
   }
 
   public async sendPost(req: Request, res: Response) {
-    const { title, text, aval, userId, musicId, artistId }: SendPostRequest =
-      req.body;
+    const { title, text, aval, userId, musicId, artistId } = req.body;
 
     try {
       await this.postRepository.sendPost(
