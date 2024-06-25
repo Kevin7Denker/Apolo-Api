@@ -22,7 +22,7 @@ class AuthMiddleWare {
 
     try {
       await jwt.verify(token, secret);
-      next();
+      return next();
     } catch (error) {
       return res.status(401).json({ error: "Invalid Token" });
     }
@@ -42,10 +42,10 @@ class AuthMiddleWare {
         throw new Error("Email not verified");
       }
 
-      next();
+      return next();
     } catch (error: unknown) {
       if (error instanceof Error) {
-        res.status(500).json({
+        return res.status(500).json({
           success: false,
           error: error.message,
         });
