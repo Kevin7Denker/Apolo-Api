@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import AuthRepository from "../Repository/Auth_Repository";
 
-import { z } from "zod";
 import path from "path";
 import ejs from "ejs";
 import fs from "fs";
+
 import User from "../Models/User";
+import AuthRepository from "../Repository/Auth_Repository";
+import AuthValidator from "../Validators/Auth";
 
 class AuthController {
   private authRepository: AuthRepository;
@@ -16,17 +17,8 @@ class AuthController {
 
   public async signUp(req: Request, res: Response) {
     try {
-      const createUserBodySchema = z.object({
-        name: z.string(),
-        surname: z.string(),
-        email: z.string().email(),
-        phone: z.string(),
-        password: z.string().min(6),
-        confirmPassword: z.string().min(6),
-      });
-
       const { name, surname, email, phone, password, confirmPassword } =
-        createUserBodySchema.parse(req.body);
+        AuthValidator.SignUpBodySchema.parse(req.body);
 
       const user = await User.findOne({ "profile.email": email });
 
@@ -69,12 +61,9 @@ class AuthController {
 
   public async signIn(req: Request, res: Response) {
     try {
-      const createUserBodySchema = z.object({
-        email: z.string().email(),
-        password: z.string().min(6),
-      });
-
-      const { email, password } = createUserBodySchema.parse(req.body);
+      const { email, password } = AuthValidator.SignInBodySchema.parse(
+        req.body
+      );
 
       const response = await this.authRepository.signIn(email, password);
 
