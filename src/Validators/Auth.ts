@@ -8,6 +8,7 @@ class AuthValidator {
     phone: z.string(),
     password: z.string().min(6),
     confirmPassword: z.string().min(6),
+    nationality: z.string(),
   });
 
   public SignInBodySchema = z.object({
