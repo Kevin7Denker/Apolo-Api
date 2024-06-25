@@ -15,7 +15,8 @@ class AuthRepository {
     surname: string,
     email: string,
     phone: string,
-    password: string
+    password: string,
+    nationality: string
   ) {
     const salt = await bcrypt.genSalt(12);
     const hash = await bcrypt.hash(password, salt);
@@ -28,6 +29,7 @@ class AuthRepository {
           email: email,
           phone: phone,
           password: hash,
+          nationality: nationality,
         },
       });
 
