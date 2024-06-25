@@ -12,6 +12,10 @@ class UserController {
   public async findUser(req: Request, res: Response) {
     const id = req.params.id;
 
+    if (id === undefined) {
+      return res.status(400).json({ error: "Invalid ID" });
+    }
+
     try {
       const response = await this.userRepository.findUser(id);
 

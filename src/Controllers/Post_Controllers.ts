@@ -22,10 +22,10 @@ class PostController {
         artistId
       );
 
-      res.status(201).json({ success: true, message: "Post Created" });
+      return res.status(201).json({ success: true, message: "Post Created" });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        res.status(404).json({
+        return res.status(404).json({
           success: false,
           error: error.message,
         });

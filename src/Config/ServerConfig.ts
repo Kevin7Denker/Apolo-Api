@@ -21,8 +21,7 @@ export default async function startServer() {
       )
       .then(() => {
         console.log("\n Welcome to Apolo\n");
-        console.log("\n Connected to server\n");
-        console.log("\n Server Status: 200");
+        console.log(" Connected to server\n");
       });
   } catch (error) {
     console.log("Erro: " + error);

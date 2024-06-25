@@ -171,11 +171,8 @@ class AuthRepository {
     }
 
     try {
-      console.log("entrada no repositorio:" + expiredToken);
-
       const verify = jwt.decode(expiredToken) as JwtPayload;
 
-      console.log("User:" + verify);
       const userId = verify.id;
 
       const user = await User.findById({ _id: userId });
@@ -192,6 +189,8 @@ class AuthRepository {
       });
 
       SignUpEmail(email, valToken);
+
+      return { msg: "Email sent" };
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
