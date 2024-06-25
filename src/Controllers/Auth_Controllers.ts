@@ -50,14 +50,14 @@ class AuthController {
         throw new Error(response.error);
       }
 
-      res.status(201).json({
+      return res.status(201).json({
         success: true,
         msg: "SignUp Successfully",
         items: [response],
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        res.status(404).json({
+        return res.status(404).json({
           success: false,
           error: error.message,
         });
@@ -79,14 +79,14 @@ class AuthController {
         throw new Error(response.error);
       }
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         msg: "SignIn Successfully",
         items: [response],
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        res.status(404).json({
+        return res.status(404).json({
           success: false,
           error: error.message,
         });
@@ -100,7 +100,7 @@ class AuthController {
     const token = req.params.token;
 
     if (!token) {
-      res.status(422).json({ error: "Token invalid" });
+      return res.status(422).json({ error: "Token invalid" });
     }
 
     try {
@@ -134,7 +134,7 @@ class AuthController {
     const token = req.params.token;
 
     if (!token) {
-      res.status(422).json({ error: "Token invalid" });
+      return res.status(422).json({ error: "Token invalid" });
     }
 
     try {
@@ -151,7 +151,7 @@ class AuthController {
         verificationLink: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
       });
 
-      res.status(200).send(html);
+      return res.status(200).send(html);
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.status(400).json({
@@ -168,14 +168,13 @@ class AuthController {
     const Expiredtoken = req.params.token;
 
     if (!Expiredtoken) {
-      res.status(422).json({ error: "Token invalid" });
+      return res.status(422).json({ error: "Token invalid" });
     }
 
     try {
-      console.log("ExpiredToken at resendValEmail" + Expiredtoken);
       this.authRepository.resendValEmail(Expiredtoken);
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         msg: "Email Resend Successfully",
       });
