@@ -96,6 +96,26 @@ class AuthController {
     }
   }
 
+  public async deleteUser(req: Request, res: Response) {
+    const userId = req.params.userId;
+
+    try {
+      if (!userId) {
+        throw new Error("User not found");
+      }
+
+      const response = this.authRepository.deleteUser(userId);
+
+      return res.status(200).json({ success: response, msg: "User Deleted" });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return res.status(500).json({ error: error.message });
+      } else {
+        return res.status(500).json({ error: "Erro desconhecido" });
+      }
+    }
+  }
+
   public async valEmail(req: Request, res: Response) {
     const token = req.params.token;
 
