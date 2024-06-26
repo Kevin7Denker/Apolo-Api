@@ -15,7 +15,7 @@ export default async function startServer() {
       .connect(
         `mongodb+srv://${dbUser}:${dbPass}@cluster.irye11p.mongodb.net/${dbName}?retryWrites=true&w=majority`,
         {
-          serverSelectionTimeoutMS: 5000,
+          serverSelectionTimeoutMS: 30000,
           socketTimeoutMS: 45000,
         }
       )
