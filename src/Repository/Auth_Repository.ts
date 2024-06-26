@@ -97,7 +97,25 @@ class AuthRepository {
       if (error instanceof Error) {
         return { error: error.message };
       } else {
-        return { error: "Erro desconhecido" };
+        return { error: "Unknowm Error" };
+      }
+    }
+  }
+
+  public async deleteUser(userId: string) {
+    try {
+      const user = await User.findByIdAndDelete(userId);
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      return true;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { error: error.message };
+      } else {
+        return { error: "Unknown Error" };
       }
     }
   }
@@ -126,7 +144,7 @@ class AuthRepository {
       if (error instanceof Error) {
         return { error: `${error.message}` };
       } else {
-        return { error: "Erro desconhecido" };
+        return { error: "Unknown Error" };
       }
     }
   }
@@ -158,7 +176,7 @@ class AuthRepository {
       if (error instanceof Error) {
         return { error: `${error.message}` };
       } else {
-        return { error: "Erro desconhecido" };
+        return { error: "Unknown Error" };
       }
     }
   }
@@ -195,7 +213,7 @@ class AuthRepository {
       if (error instanceof Error) {
         return { error: `${error.message}` };
       } else {
-        return { error: "Erro desconhecido" };
+        return { error: "Unknown Error" };
       }
     }
   }
