@@ -9,7 +9,7 @@ dotenv.config();
 export async function SignUpEmail(email: string, token: string) {
   const templatePath = path.join(
     __dirname,
-    "../../Templates/Emails/Email_Validation.html"
+    "../../../Templates/Emails/Email_Validation.html"
   );
   const templateContent = fs.readFileSync(templatePath, "utf-8");
 
