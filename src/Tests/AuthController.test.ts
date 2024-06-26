@@ -44,7 +44,10 @@ describe("AuthController", () => {
         })
         .catch((error) => {
           expect(error.response.status).toBe(404);
-          expect(error.response.status).toEqual(404);
+          expect(error.response.data).toEqual({
+            error: "User Already Exists",
+            success: false,
+          });
         });
     }, 15000);
   });
@@ -79,7 +82,10 @@ describe("AuthController", () => {
         })
         .catch((error) => {
           expect(error.response.status).toBe(404);
-          expect(error.response.status).toEqual(404);
+          expect(error.response.data).toEqual({
+            success: false,
+            error: "User not found",
+          });
         });
     });
   });
