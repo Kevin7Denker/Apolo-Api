@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-import publicRoutes from "./Routes/Publics/Public_Route";
+import publicRoutes from "./Routes/Public/Public_Route";
 import authRoutes from "./Routes/Auth/Auth_Route";
 import userRoutes from "./Routes/Main/User_Route";
 import postRoutes from "./Routes/Main/Post_Route";
