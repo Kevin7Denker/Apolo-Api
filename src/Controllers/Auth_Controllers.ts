@@ -27,14 +27,14 @@ class AuthController {
         nationality,
       } = AuthValidator.SignUpBodySchema.parse(req.body);
 
-      const user = await User.findOne({ "profile.email": email });
+      const user = await User.findOne({ "user.profile.email": email });
 
-      if (user != null) {
+      if (user !== null) {
         throw new Error("User Already Exists");
       }
 
       if (password !== confirmPassword) {
-        throw new Error("The passwords need be equals");
+        throw new Error("The passwords need to be equal");
       }
 
       const response = await this.authRepository.signUp(
@@ -57,12 +57,12 @@ class AuthController {
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        return res.status(404).json({
+        return res.status(500).json({
           success: false,
           error: error.message,
         });
       } else {
-        return { error: "Unknown Error" };
+        return res.status(500).json({ success: false, error: "Unknown Error" });
       }
     }
   }
@@ -104,9 +104,9 @@ class AuthController {
         throw new Error("User not found");
       }
 
-      const response = this.authRepository.deleteUser(userId);
+      this.authRepository.deleteUser(userId);
 
-      return res.status(200).json({ success: response, msg: "User Deleted" });
+      return res.status(200).json({ success: true, msg: "User Deleted" });
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.status(500).json({ error: error.message });

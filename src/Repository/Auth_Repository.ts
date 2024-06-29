@@ -106,7 +106,7 @@ class AuthRepository {
     try {
       const user = await User.findByIdAndDelete(userId);
 
-      if (!user) {
+      if (user == null) {
         throw new Error("User not found");
       }
 
