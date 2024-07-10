@@ -17,15 +17,8 @@ class AuthController {
 
   public async signUp(req: Request, res: Response) {
     try {
-      const {
-        name,
-        surname,
-        email,
-        phone,
-        password,
-        confirmPassword,
-        nationality,
-      } = AuthValidator.SignUpBodySchema.parse(req.body);
+      const { name, surname, email, phone, password, confirmPassword } =
+        AuthValidator.SignUpBodySchema.parse(req.body);
 
       const user = await User.findOne({ "user.profile.email": email });
 
@@ -42,8 +35,7 @@ class AuthController {
         surname,
         email,
         phone,
-        password,
-        nationality
+        password
       );
 
       if (response.error) {
