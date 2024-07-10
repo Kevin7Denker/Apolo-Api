@@ -101,7 +101,7 @@ describe("AuthController", () => {
       );
 
       expect(res.status).toBe(200);
-      expect(res.data).toEqual({ msg: "User Deleted", success: {} });
+      expect(res.data).toEqual({ msg: "User Deleted", success: true });
     });
   });
 });
