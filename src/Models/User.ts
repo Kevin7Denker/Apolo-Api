@@ -13,7 +13,7 @@ const Profile = new Schema(
     image: { type: String, default: "", required: false },
     lastLogin: { type: Date, default: Date.now(), required: true },
     lastUpdate: { type: Date, default: Date.now(), required: true },
-    dateCriation: { type: Date, default: null, required: true },
+    dateCriation: { type: Date, default: null, required: false },
   },
   { _id: false }
 );
