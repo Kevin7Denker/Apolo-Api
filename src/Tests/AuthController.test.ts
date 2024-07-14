@@ -15,7 +15,7 @@ describe("AuthController", () => {
         {
           name: "John",
           surname: "Wick",
-          email: "test@example.com",
+          email: "existing@example.com",
           phone: "1234567890",
           password: "password",
           confirmPassword: "password",
