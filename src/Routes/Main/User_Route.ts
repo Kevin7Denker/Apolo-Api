@@ -8,7 +8,6 @@ const userRepository = new UserRepository();
 
 const userController = new UserController(userRepository);
 
-route.post("/find-user/:id", (req, res) => userController.findUser(req, res));
 route.post("/find-identity/:id", (req, res) =>
   userController.findIdentity(req, res)
 );
