@@ -26,10 +26,10 @@ class UserController {
   }
 
   public async findIdentity(req: Request, res: Response) {
-    const identity = req.params.identity;
+    const identity = req.params.id;
 
-    if (identity === undefined) {
-      return res.status(400).json({ error: "Invalid Identity" });
+    if (!identity) {
+      return res.status(400).json("Invalid Identity");
     }
 
     try {
