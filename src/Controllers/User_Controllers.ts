@@ -36,10 +36,18 @@ class UserController {
       const response = await this.userRepository.findIdentity(identity);
 
       if (response === false) {
+        return res.status(401).json({
+          msg: "The identity already exists",
+          info: "Try another identity value",
+          pass: response,
+        });
+      }
+
+      if (response === true) {
         return res.status(200).json({ pass: response });
       }
 
-      return res.status(400).json({ error: "Identity Exists" });
+      return res.status(204).json({ info: "No content" });
     } catch (error) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
