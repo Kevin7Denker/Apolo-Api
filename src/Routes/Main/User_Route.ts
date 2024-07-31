@@ -9,5 +9,8 @@ const userRepository = new UserRepository();
 const userController = new UserController(userRepository);
 
 route.get("/find-user=:id", (req, res) => userController.findUser(req, res));
+route.get("/find-identity=:id", (req, res) =>
+  userController.findIdentity(req, res)
+);
 
 export default route;

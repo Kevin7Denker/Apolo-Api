@@ -18,6 +18,24 @@ class UserRepository {
       }
     }
   }
+
+  public async findIdentity(identity: string) {
+    try {
+      const ident = await User.findOne({ "profile.identity": identity });
+
+      if (ident == null) {
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      if (error instanceof Error) {
+        return { error: `${error.message}` };
+      } else {
+        return { error: "error" };
+      }
+    }
+  }
 }
 
 export default UserRepository;

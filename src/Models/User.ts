@@ -6,6 +6,7 @@ const Profile = new Schema(
   {
     name: { type: String, required: true },
     surname: { type: String, required: true },
+    identity: { type: String, default: {}, required: false },
     email: { type: String, required: true },
     phone: { type: String, required: true },
     password: { type: String, required: true },
