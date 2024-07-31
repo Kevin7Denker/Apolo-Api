@@ -39,9 +39,7 @@ class UserController {
         return res.status(200).json({ pass: response });
       }
 
-      if (response === true) {
-        return res.status(400).json({ error: "Identity Exists" });
-      }
+      return res.status(400).json({ error: "Identity Exists" });
     } catch (error) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
