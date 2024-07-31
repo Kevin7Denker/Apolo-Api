@@ -15,11 +15,15 @@ describe("AuthController", () => {
         {
           name: "John",
           surname: "Wick",
+          identity: "@teste",
           email: "existing@example.com",
           phone: "1234567890",
           password: "password",
           confirmPassword: "password",
-          nationality: "USA",
+          nationality: {
+            countrie: "Brazil",
+            code: "BR",
+          },
         }
       );
 
@@ -35,12 +39,16 @@ describe("AuthController", () => {
       await axios
         .post("https://apolo-api.onrender.com/auth/signup", {
           name: "John",
-          surname: "Doe",
+          surname: "Wick",
+          identity: "@teste",
           email: "existing@example.com",
           phone: "1234567890",
           password: "password",
           confirmPassword: "password",
-          nationality: "USA",
+          nationality: {
+            countrie: "Brazil",
+            code: "BR",
+          },
         })
         .catch((error) => {
           expect(error.response.status).toBe(404);
