@@ -23,11 +23,15 @@ class UserRepository {
     try {
       const ident = await User.findOne({ "profile.identity": identity });
 
-      if (ident == null) {
+      if (ident) {
+        return false;
+      }
+
+      if (!ident) {
         return true;
       }
 
-      return false;
+      return;
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
