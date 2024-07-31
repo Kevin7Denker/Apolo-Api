@@ -6,18 +6,18 @@ const Profile = new Schema(
   {
     name: { type: String, required: true },
     surname: { type: String, required: true },
-    identity: { type: String, default: "", required: true },
+    identity: { type: String, default: "", required: false },
     email: { type: String, required: true },
     phone: { type: String, required: true },
     password: { type: String, required: true },
     nationality: {
-      countrie: { type: String, default: "", required: true },
-      code: { type: String, default: "", required: true },
+      countrie: { type: String, default: "", required: false },
+      code: { type: String, default: "", required: false },
     },
     image: { type: String, default: "", required: false },
     lastLogin: { type: Date, default: Date.now(), required: true },
     lastUpdate: { type: Date, default: Date.now(), required: true },
-    dateCriation: { type: Date, default: null, required: true },
+    dateCriation: { type: Date, default: null, required: false },
   },
   { _id: false }
 );
