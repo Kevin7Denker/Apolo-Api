@@ -3,7 +3,7 @@ import User from "../Models/User";
 class UserRepository {
   public async findUser(id: string) {
     try {
-      const user = await User.findOne({ id_: id });
+      const user = await User.findOne({ _id: id });
 
       if (user == null) {
         throw new Error("User not exists");
