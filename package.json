@@ -51,6 +51,7 @@
     "@types/qs": "^6.9.15",
     "@types/react": "^18.3.3",
     "@types/supertest": "^6.0.2",
+    "@types/ws": "^8.5.12",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
     "babel-jest": "^29.7.0",
