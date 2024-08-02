@@ -20,11 +20,9 @@ class AuthController {
       const { name, surname, email, phone, password, confirmPassword } =
         AuthValidator.SignUpBodySchema.parse(req.body);
 
-      const user = await User.findOne({ "user.profile.email": email });
+      const user = await User.findOne({ "profile.email": email });
 
-      console.log(user);
-
-      if (user) {
+      if (user !== null) {
         throw new Error("User Already Exists");
       }
 
