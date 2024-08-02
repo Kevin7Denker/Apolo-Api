@@ -22,7 +22,9 @@ class AuthController {
 
       const user = await User.findOne({ "user.profile.email": email });
 
-      if (user !== null) {
+      console.log(user);
+
+      if (user) {
         throw new Error("User Already Exists");
       }
 
