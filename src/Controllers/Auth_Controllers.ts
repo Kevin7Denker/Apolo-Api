@@ -214,8 +214,6 @@ class AuthController {
         code
       );
 
-      console.log("Controller: " + response?.toString());
-
       return res.status(200).json({
         success: true,
         msg: "Welcome Completed",
