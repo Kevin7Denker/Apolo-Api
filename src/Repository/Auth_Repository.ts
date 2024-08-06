@@ -232,9 +232,9 @@ class AuthRepository {
     code: string
   ) {
     try {
-      const user = (await this.userRepository.findUserByEmail(
-        email
-      )) as UserDocument;
+      const user = (await User.findOne({
+        "profile.email": email,
+      })) as UserDocument;
 
       console.log("Repositorio: " + user);
 
