@@ -33,9 +33,12 @@ const Profile = new Schema<Profile>(
   { _id: false }
 );
 
-const Data = new Schema<Data>({
-  genres: { type: [String], default: [], required: false },
-});
+const Data = new Schema<Data>(
+  {
+    genres: { type: [String], default: [], required: false },
+  },
+  { _id: false }
+);
 
 const Config = new Schema<Config>(
   {
