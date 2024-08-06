@@ -234,7 +234,7 @@ class AuthRepository {
     try {
       const user = (await this.userRepository.findUserByEmail(
         email
-      )) as UserDocument;
+      )) as unknown as UserDocument;
 
       console.log("Repositorio: " + user);
 
