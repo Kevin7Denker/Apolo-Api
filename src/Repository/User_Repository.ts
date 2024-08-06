@@ -21,7 +21,7 @@ class UserRepository {
 
   public async findUserByEmail(email: string) {
     try {
-      const user = await User.findOne({ "profile.email": email });
+      const user = await User.find({ "profile.email": email });
 
       if (user === null) {
         throw new Error("User not exists");
