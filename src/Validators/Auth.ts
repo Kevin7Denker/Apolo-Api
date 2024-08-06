@@ -14,6 +14,15 @@ class AuthValidator {
     email: z.string().email(),
     password: z.string().min(6),
   });
+
+  public WelcomeBodySchema = z.object({
+    email: z.string().email(),
+    image: z.any(),
+    identity: z.string().max(25),
+    genres: z.array(z.string()),
+    country: z.string(),
+    code: z.string().length(2),
+  });
 }
 
 export default new AuthValidator();

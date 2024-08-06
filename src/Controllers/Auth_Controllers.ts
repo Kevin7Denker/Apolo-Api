@@ -200,6 +200,38 @@ class AuthController {
       }
     }
   }
+
+  public async completeWelcome(req: Request, res: Response) {
+    const { email, image, identity, genres, country, code } =
+      AuthValidator.WelcomeBodySchema.parse(req.body);
+    try {
+      const response = await this.authRepository.CompleteWelcome(
+        email,
+        image,
+        identity,
+        genres,
+        country,
+        code
+      );
+
+      console.log("Controller: " + response);
+
+      return res.status(200).json({
+        success: true,
+        msg: "Welcome Completed",
+        items: [response],
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return res.status(500).json({
+          success: false,
+          error: error.message,
+        });
+      } else {
+        return res.status(500).json({ success: false, error: "Unknown Error" });
+      }
+    }
+  }
 }
 
 export default AuthController;

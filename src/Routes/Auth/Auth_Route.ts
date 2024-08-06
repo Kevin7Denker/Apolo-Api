@@ -11,6 +11,10 @@ const authController = new AuthController(authRepository);
 route.post("/signup", (req, res) => authController.signUp(req, res));
 route.post("/signin", (req, res) => authController.signIn(req, res));
 
+route.post("/complete-welcome", (req, res) => {
+  authController.completeWelcome(req, res);
+});
+
 route.get("/verify-email/:token", (req, res) =>
   authController.valEmail(req, res)
 );
