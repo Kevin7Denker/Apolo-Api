@@ -36,6 +36,25 @@ class UserController {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   }
+
+  public async findUserByEmail(req: Request, res: Response) {
+    const email = req.params.email;
+
+    if (!email) {
+      return res.status(400).json("Invalid Email");
+    }
+
+    try {
+      const response = await this.userRepository.findUserByEmail(email);
+
+      return res.status(200).json({
+        success: true,
+        items: [response],
+      });
+    } catch (error) {
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
 }
 
 export default UserController;
