@@ -236,6 +236,8 @@ class AuthRepository {
         email
       )) as UserDocument;
 
+      console.log("Repositorio: " + user);
+
       if (user === null) {
         throw new Error("User not found");
       }
