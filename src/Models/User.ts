@@ -1,8 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
+
+import {
+  Validation,
+  Config,
+  Profile,
+  UserDocument,
+  Data,
+} from "src/interfaces/User";
 
 const Schema = mongoose.Schema;
 
-const Profile = new Schema(
+const Profile = new Schema<Profile>(
   {
     name: { type: String, required: true },
     surname: { type: String, required: true },
@@ -14,7 +22,10 @@ const Profile = new Schema(
       countrie: { type: String, default: "", required: false },
       code: { type: String, default: "", required: false },
     },
-    image: { type: String, default: "", required: false },
+    image: {
+      data: Buffer,
+      contentType: String,
+    },
     lastLogin: { type: Date, default: Date.now(), required: true },
     lastUpdate: { type: Date, default: Date.now(), required: true },
     dateCriation: { type: Date, default: null, required: false },
@@ -22,7 +33,11 @@ const Profile = new Schema(
   { _id: false }
 );
 
-const Config = new Schema(
+const Data = new Schema<Data>({
+  genres: { type: [String], default: [], required: false },
+});
+
+const Config = new Schema<Config>(
   {
     theme: { type: String, default: "light", required: true },
     language: { type: String, default: "en", required: true },
@@ -30,7 +45,7 @@ const Config = new Schema(
   { _id: false }
 );
 
-const Validation = new Schema(
+const Validation = new Schema<Validation>(
   {
     email: { type: Boolean, default: false, required: true },
     phone: { type: Boolean, default: false, required: true },
@@ -38,10 +53,18 @@ const Validation = new Schema(
   { _id: false }
 );
 
-const User = new Schema({
+const User = new Schema<UserDocument>({
   validation: { type: Validation, default: {} },
   profile: { type: Profile, default: {} },
   config: { type: Config, default: {} },
+  data: { type: Data, default: {} },
 });
 
-export default mongoose.model("User", User);
+const UserSchema: Model<UserDocument> = mongoose.model<UserDocument>(
+  "User",
+  User
+);
+
+export default UserSchema;
+
+//export default mongoose.model<UserDocument>("User", User);
