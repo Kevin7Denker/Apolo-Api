@@ -248,6 +248,7 @@ class AuthRepository {
       };
 
       user.profile.identity = identity;
+      user.profile.dateCriation = new Date(Date.now());
 
       if (user.profile.nationality) {
         user.profile.nationality.country = country;
