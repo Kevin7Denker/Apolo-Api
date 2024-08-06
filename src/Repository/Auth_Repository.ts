@@ -8,8 +8,12 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import User from "../Models/User";
 import { SignUpEmail } from "../Services/Email/Emails.ts/Auth_Emails";
 import { env } from "../Config/ServerConfig";
+import UserRepository from "./User_Repository";
+import { UserDocument } from "src/interfaces/User";
 
 class AuthRepository {
+  userRepository: UserRepository;
+
   public async signUp(
     name: string,
     surname: string,
@@ -29,7 +33,7 @@ class AuthRepository {
           phone: phone,
           password: hash,
         },
-      });
+      }) as UserDocument;
 
       user.save();
 
@@ -61,7 +65,9 @@ class AuthRepository {
 
   public async signIn(email: string, password: string) {
     try {
-      const user = await User.findOne({ "profile.email": email });
+      const user = (await User.findOne({
+        "profile.email": email,
+      })) as UserDocument;
 
       if (user == null) {
         throw new Error("User not found");
@@ -102,7 +108,7 @@ class AuthRepository {
 
   public async deleteUser(userId: string) {
     try {
-      const user = await User.findByIdAndDelete(userId);
+      const user = (await User.findByIdAndDelete(userId)) as UserDocument;
 
       if (user == null) {
         throw new Error("User not found");
@@ -128,9 +134,10 @@ class AuthRepository {
 
       const verify: string | JwtPayload = jwt.verify(token, secret);
       const jwtVerify = verify as JwtPayload;
-      const user = await User.findById({ _id: jwtVerify.id });
 
-      if (user == null) {
+      const user = (await User.findById({ _id: jwtVerify.id })) as UserDocument;
+
+      if (user === null) {
         throw new Error("User not found");
       }
 
@@ -191,7 +198,7 @@ class AuthRepository {
 
       const userId = verify.id;
 
-      const user = await User.findById({ _id: userId });
+      const user = (await User.findById({ _id: userId })) as UserDocument;
       const email = user?.profile.email as string;
 
       const secret = env.SECRET;
@@ -215,6 +222,48 @@ class AuthRepository {
       }
     }
   }
-}
 
+  public async CompleteWelcome(
+    email: string,
+    image: File,
+    identity: string,
+    genres: string[],
+    country: string,
+    code: string
+  ) {
+    try {
+      const user = (await this.userRepository.findUserByEmail(
+        email
+      )) as UserDocument;
+
+      if (user === null) {
+        throw new Error("User not found");
+      }
+
+      user.profile.image = {
+        data: Buffer.from(await image.arrayBuffer()),
+        contentType: image.type,
+      };
+
+      user.profile.identity = identity;
+
+      if (user.profile.nationality) {
+        user.profile.nationality.country = country;
+        user.profile.nationality.code = code;
+      }
+
+      user.data.genres = genres;
+
+      await user.save();
+
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        return { error: `${error.message}` };
+      } else {
+        return { error: "Unknown Error" };
+      }
+    }
+  }
+}
 export default AuthRepository;
