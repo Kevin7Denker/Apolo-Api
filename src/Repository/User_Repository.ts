@@ -27,6 +27,7 @@ class UserRepository {
         throw new Error("User not exists");
       }
 
+      console.log("Find user by email: " + user);
       return user;
     } catch (error) {
       if (error instanceof Error) {
