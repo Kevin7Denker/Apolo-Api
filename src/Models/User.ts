@@ -1,3 +1,4 @@
+import { File } from "buffer";
 import mongoose, { Model } from "mongoose";
 
 import {
