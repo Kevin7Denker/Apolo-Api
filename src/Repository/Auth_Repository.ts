@@ -236,28 +236,25 @@ class AuthRepository {
         "profile.email": email,
       })) as UserDocument;
 
-      console.log("Repositorio: " + user);
-
       if (user === null) {
         throw new Error("User not found");
       }
 
-      user.profile.image = {
+      user.profile!.image = {
         data: Buffer.from(await image.arrayBuffer()),
         contentType: image.type,
       };
 
-      user.profile.identity = identity;
-      user.profile.dateCriation = new Date(Date.now());
+      user.profile!.identity = identity;
+      user.profile!.dateCriation = new Date(Date.now());
 
-      if (user.profile.nationality) {
-        user.profile.nationality.country = country;
-        user.profile.nationality.code = code;
-      }
+      user.profile.nationality!.country = country;
+      user.profile.nationality!.code = code;
 
-      user.data.genres = genres;
+      user.data!.genres = genres;
 
       await user.save();
+      console.log("Repositorio: " + user);
 
       return;
     } catch (error) {
