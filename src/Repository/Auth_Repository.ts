@@ -240,10 +240,7 @@ class AuthRepository {
         throw new Error("User not found");
       }
 
-      user.profile!.image = {
-        data: Buffer.from(await image.arrayBuffer()),
-        contentType: image.type,
-      };
+      user.profile!.image = image;
 
       user.profile!.identity = identity;
       user.profile!.dateCriation = new Date(Date.now());
