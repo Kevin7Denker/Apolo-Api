@@ -12,7 +12,7 @@ export interface Profile {
     country: string;
     code: string;
   };
-  image?: File;
+  image?: { data: Buffer; contentType: string };
 }
 
 export interface Config {
