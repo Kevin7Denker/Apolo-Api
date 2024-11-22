@@ -24,7 +24,6 @@ const Profile = new Schema<Profile>(
     },
     image: {
       type: Buffer,
-      default: "",
       required: false,
     },
     lastLogin: { type: Date, default: Date.now(), required: true },
@@ -70,5 +69,3 @@ const UserSchema: Model<UserDocument> = mongoose.model<UserDocument>(
 );
 
 export default UserSchema;
-
-//export default mongoose.model<UserDocument>("User", User);
