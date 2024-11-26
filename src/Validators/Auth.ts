@@ -26,10 +26,6 @@ class AuthValidator {
 
   public UserIdBodySchema = z.object({ userId: z.string().min(1) });
 
-  public TokenBodySchema = z.object({
-    token: z.string().min(1),
-  });
-
   public UpdateImageBodySchema = z.object({
     image: z.any(),
     userId: z.string().min(1),

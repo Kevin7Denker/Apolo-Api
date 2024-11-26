@@ -107,7 +107,7 @@ class AuthController {
   }
 
   public async valEmail(req: Request, res: Response) {
-    const { token } = AuthValidator.TokenBodySchema.parse(req.body);
+    const token = req.params.token;
 
     if (!token) {
       return res.status(422).json({ error: "Token invalid" });
@@ -141,8 +141,7 @@ class AuthController {
   }
 
   public async errorValEmail(req: Request, res: Response) {
-    const { token } = AuthValidator.TokenBodySchema.parse(req.body);
-
+    const token = req.params.token;
     if (!token) {
       return res.status(422).json({ error: "Token invalid" });
     }
@@ -175,8 +174,7 @@ class AuthController {
   }
 
   public async resendValEmail(req: Request, res: Response) {
-    const { token } = AuthValidator.TokenBodySchema.parse(req.body);
-
+    const token = req.params.token;
     if (!token) {
       return res.status(422).json({ error: "Token invalid" });
     }
