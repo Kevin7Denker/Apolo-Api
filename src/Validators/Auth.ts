@@ -23,13 +23,6 @@ class AuthValidator {
     country: z.string(),
     code: z.string().length(2),
   });
-
-  public UserIdBodySchema = z.object({ userId: z.string() });
-
-  public UpdateImageBodySchema = z.object({
-    image: z.any(),
-    userId: z.string().min(1),
-  });
 }
 
 export default new AuthValidator();

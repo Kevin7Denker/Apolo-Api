@@ -177,13 +177,14 @@ class AuthController {
   }
 
   public async resendValEmail(req: Request, res: Response) {
-    const ExpiredToken = req.params.token;
-    if (!ExpiredToken) {
+    const Expiredtoken = req.params.token;
+
+    if (!Expiredtoken) {
       return res.status(422).json({ error: "Token invalid" });
     }
 
     try {
-      this.authRepository.resendValEmail(ExpiredToken);
+      this.authRepository.resendValEmail(Expiredtoken);
 
       return res.status(200).json({
         success: true,
@@ -216,29 +217,6 @@ class AuthController {
       return res.status(200).json({
         success: true,
         msg: "Welcome Completed",
-        items: [response],
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return res.status(500).json({
-          success: false,
-          error: error.message,
-        });
-      } else {
-        return res.status(500).json({ success: false, error: "Unknown Error" });
-      }
-    }
-  }
-
-  public async updateImage(req: Request, res: Response) {
-    const { image, userId } = AuthValidator.UpdateImageBodySchema.parse(
-      req.body
-    );
-    try {
-      const response = await this.authRepository.updateImage(image, userId);
-      return res.status(200).json({
-        success: true,
-        msg: "Image Updated",
         items: [response],
       });
     } catch (error: unknown) {
