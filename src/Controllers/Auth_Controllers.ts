@@ -1,9 +1,5 @@
 import { Request, Response } from "express";
 
-import path from "path";
-import ejs from "ejs";
-import fs from "fs";
-
 import User from "../Models/User";
 import AuthRepository from "../Repository/Auth_Repository";
 import AuthValidator from "../Validators/Auth";
@@ -65,16 +61,16 @@ class AuthController {
         req.body
       );
 
-      const response = await this.authRepository.signIn(email, password);
+      const result = await this.authRepository.signIn(email, password);
 
-      if (response.error) {
-        throw new Error(response.error);
+      if (result.error) {
+        throw new Error(result.error);
       }
 
       return res.status(200).json({
         success: true,
         msg: "SignIn Successfully",
-        items: [response],
+        items: [result],
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -122,15 +118,11 @@ class AuthController {
         throw new Error(response.error);
       }
 
-      const Welcome = path.join(
-        __dirname,
-        "..",
-        "Templates",
-        "Responses",
-        "Response_Welcome.html"
-      );
-
-      return res.status(200).sendFile(Welcome);
+      if (response.file) {
+        return res.status(200).sendFile(response.file);
+      } else {
+        return res.status(404).json({ error: "File not found" });
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.redirect(
@@ -150,20 +142,9 @@ class AuthController {
     }
 
     try {
-      const templatePath = path.join(
-        __dirname,
-        "..",
-        "Templates",
-        "Responses",
-        "Response_NotVerified.html"
-      );
-      const templateContent = fs.readFileSync(templatePath, "utf-8");
+      const result = await this.authRepository.errorEmail(token);
 
-      const html = await ejs.render(templateContent, {
-        verificationLink: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
-      });
-
-      return res.status(200).send(html);
+      return res.status(200).send(result);
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.status(400).json({
@@ -184,12 +165,17 @@ class AuthController {
     }
 
     try {
-      this.authRepository.resendValEmail(Expiredtoken);
+      const result = await this.authRepository.resendValEmail(Expiredtoken);
 
-      return res.status(200).json({
-        success: true,
-        msg: "Email Resend Successfully",
-      });
+      if (result.error) {
+        throw new Error(result.error);
+      }
+
+      if (result.file) {
+        return res.status(200).sendFile(result.file);
+      } else {
+        throw new Error("File not found");
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         return res.status(400).json({
