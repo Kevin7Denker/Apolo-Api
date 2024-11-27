@@ -2,9 +2,7 @@ import ejs from "ejs";
 import fs from "fs";
 import path from "path";
 import bcrypt from "bcrypt";
-import { AnyObject } from "mongoose";
 import jwt, { JwtPayload } from "jsonwebtoken";
-
 import User from "../Models/User";
 import { SignUpEmail } from "../Services/Email/Emails.ts/Auth_Emails";
 import { env } from "../Config/ServerConfig";
@@ -47,7 +45,7 @@ class AuthRepository {
 
       SignUpEmail(email, valToken);
 
-      const userWP: AnyObject = { ...user.toObject() };
+      const userWP = { ...user.toObject() };
 
       if (userWP.profile && userWP.profile.password) {
         delete userWP.profile.password;
@@ -90,7 +88,7 @@ class AuthRepository {
 
       user.save();
 
-      const userWP: AnyObject = { ...user.toObject() };
+      const userWP = { ...user.toObject() };
 
       if (userWP.profile && userWP.profile.password) {
         delete userWP.profile.password;
@@ -214,6 +212,27 @@ class AuthRepository {
       SignUpEmail(email, valToken);
 
       return { msg: "Email sent" };
+    } catch (error) {
+      if (error instanceof Error) {
+        return { error: `${error.message}` };
+      } else {
+        return { error: "Unknown Error" };
+      }
+    }
+  }
+
+  public async updateImage(image: File, userId: string) {
+    try {
+      const user = (await User.findById(userId)) as UserDocument;
+      if (user === null) {
+        throw new Error("User not found");
+      }
+      user.profile.image = {
+        data: Buffer.from(await image.arrayBuffer()),
+        contentType: image.type,
+      };
+      await user.save();
+      return;
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
