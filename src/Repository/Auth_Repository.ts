@@ -236,11 +236,16 @@ class AuthRepository {
         "profile.email": email,
       })) as UserDocument;
 
+      console.log("Repositorio: " + user);
+
       if (user === null) {
         throw new Error("User not found");
       }
 
-      this.updateImage(image, (user._id as unknown as string).toString());
+      user.profile.image = {
+        data: Buffer.from(await image.arrayBuffer()),
+        contentType: image.type,
+      };
 
       user.profile.identity = identity;
       user.profile.dateCriation = new Date(Date.now());
@@ -263,31 +268,5 @@ class AuthRepository {
       }
     }
   }
-
-  public async updateImage(image: File, userId: string) {
-    try {
-      const user = (await User.findById(userId)) as UserDocument;
-
-      if (user === null) {
-        throw new Error("User not found");
-      }
-
-      user.profile.image = {
-        data: Buffer.from(await image.arrayBuffer()),
-        contentType: image.type,
-      };
-
-      await user.save();
-
-      return;
-    } catch (error) {
-      if (error instanceof Error) {
-        return { error: `${error.message}` };
-      } else {
-        return { error: "Unknown Error" };
-      }
-    }
-  }
 }
-
 export default AuthRepository;
