@@ -22,6 +22,17 @@ class AuthValidator {
     genres: z.array(z.string()),
     country: z.string(),
     code: z.string().length(2),
+    identity: z.string().max(25),
+    genres: z.array(z.string()),
+    country: z.string().min(1),
+    code: z.string().length(2),
+  });
+
+  public UserIdBodySchema = z.object({ userId: z.string()});
+
+  public UpdateImageBodySchema = z.object({
+    image: z.any(),
+    userId: z.string().min(1),
   });
 }
 

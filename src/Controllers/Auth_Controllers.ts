@@ -144,6 +144,7 @@ class AuthController {
 
   public async errorValEmail(req: Request, res: Response) {
     const token = req.params.token;
+
     if (!token) {
       return res.status(422).json({ error: "Token invalid" });
     }
@@ -176,6 +177,7 @@ class AuthController {
   }
 
   public async resendValEmail(req: Request, res: Response) {
+
     const ExpiredToken = req.params.token;
     if (!ExpiredToken) {
       return res.status(422).json({ error: "Token invalid" });
