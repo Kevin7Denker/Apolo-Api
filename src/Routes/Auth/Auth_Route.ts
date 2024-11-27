@@ -15,14 +15,15 @@ route.post("/complete-welcome", (req, res) => {
   authController.completeWelcome(req, res);
 });
 
+route.post("/verify-email/resend/:token", (req, res) =>
+  authController.resendValEmail(req, res)
+);
+
 route.get("/verify-email/:token", (req, res) =>
   authController.valEmail(req, res)
 );
 route.get("/verify-email/error/:token", (req, res) =>
   authController.errorValEmail(req, res)
-);
-route.get("/verify-email/resend/:token", (req, res) =>
-  authController.resendValEmail(req, res)
 );
 
 route.delete("/user/:userId", (req, res) =>
