@@ -132,6 +132,14 @@ class AuthRepository {
         throw new Error("The secret is not defined");
       }
 
+      const Welcome = path.join(
+        __dirname,
+        "..",
+        "Templates",
+        "Responses",
+        "Response_Welcome.html"
+      );
+
       const verify: string | JwtPayload = jwt.verify(token, secret);
       const jwtVerify = verify as JwtPayload;
 
@@ -144,7 +152,7 @@ class AuthRepository {
       user.validation!.email = true;
       user.save();
 
-      return { msg: "Validation Completed" };
+      return { msg: "Validation Completed", file: Welcome };
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
@@ -176,7 +184,7 @@ class AuthRepository {
         verificationLink: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
       });
 
-      return html;
+      return { msg: "Validation Error", file: html };
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
@@ -194,6 +202,12 @@ class AuthRepository {
     }
 
     try {
+      const templatePath = path.join(
+        __dirname,
+        "../../Templates/Response_Resend.html"
+      );
+      const templateContent = fs.readFileSync(templatePath, "utf-8");
+
       const verify = jwt.decode(expiredToken) as JwtPayload;
 
       const userId = verify.id;
@@ -213,7 +227,7 @@ class AuthRepository {
 
       SignUpEmail(email, valToken);
 
-      return { msg: "Email sent" };
+      return { msg: "Resend Email", file: templateContent };
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
