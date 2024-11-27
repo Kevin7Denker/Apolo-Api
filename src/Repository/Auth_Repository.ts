@@ -134,10 +134,7 @@ class AuthRepository {
 
       const Welcome = path.join(
         __dirname,
-        "..",
-        "Templates",
-        "Responses",
-        "Response_Welcome.html"
+        "../Templates/Responses/Response_Welcome.html"
       );
 
       const verify: string | JwtPayload = jwt.verify(token, secret);
@@ -176,7 +173,7 @@ class AuthRepository {
     try {
       const templatePath = path.join(
         __dirname,
-        "../../Templates/Emails/Email_NotVerified.html"
+        "../Templates/Responses/Response_NotVerified.html"
       );
       const templateContent = fs.readFileSync(templatePath, "utf-8");
 
