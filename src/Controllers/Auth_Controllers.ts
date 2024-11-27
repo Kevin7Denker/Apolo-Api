@@ -16,18 +16,18 @@ class AuthController {
   }
 
   public async signUp(req: Request, res: Response) {
-    const { name, surname, email, phone, password, confirmPassword } =
-      AuthValidator.SignUpBodySchema.parse(req.body);
-
     try {
+      const { name, surname, email, phone, password, confirmPassword } =
+        AuthValidator.SignUpBodySchema.parse(req.body);
+
       const user = await User.findOne({ "profile.email": email });
 
-      if (user) {
+      if (user !== null) {
         throw new Error("User Already Exists");
       }
 
       if (password !== confirmPassword) {
-        throw new Error("Password and Confirm Password must be the same");
+        throw new Error("The passwords need to be equal");
       }
 
       const response = await this.authRepository.signUp(
@@ -60,9 +60,11 @@ class AuthController {
   }
 
   public async signIn(req: Request, res: Response) {
-    const { email, password } = AuthValidator.SignInBodySchema.parse(req.body);
-
     try {
+      const { email, password } = AuthValidator.SignInBodySchema.parse(
+        req.body
+      );
+
       const response = await this.authRepository.signIn(email, password);
 
       if (response.error) {
@@ -87,7 +89,7 @@ class AuthController {
   }
 
   public async deleteUser(req: Request, res: Response) {
-    const { userId } = AuthValidator.UserIdBodySchema.parse(req.body);
+    const userId = req.params.userId;
 
     try {
       if (!userId) {
@@ -107,7 +109,7 @@ class AuthController {
   }
 
   public async valEmail(req: Request, res: Response) {
-    const { token } = AuthValidator.TokenBodySchema.parse(req.body);
+    const token = req.params.token;
 
     if (!token) {
       return res.status(422).json({ error: "Token invalid" });
@@ -141,7 +143,7 @@ class AuthController {
   }
 
   public async errorValEmail(req: Request, res: Response) {
-    const { token } = AuthValidator.TokenBodySchema.parse(req.body);
+    const token = req.params.token;
 
     if (!token) {
       return res.status(422).json({ error: "Token invalid" });
@@ -175,14 +177,14 @@ class AuthController {
   }
 
   public async resendValEmail(req: Request, res: Response) {
-    const { token } = AuthValidator.TokenBodySchema.parse(req.body);
 
-    if (!token) {
+    const ExpiredToken = req.params.token;
+    if (!ExpiredToken) {
       return res.status(422).json({ error: "Token invalid" });
     }
 
     try {
-      this.authRepository.resendValEmail(token);
+      this.authRepository.resendValEmail(ExpiredToken);
 
       return res.status(200).json({
         success: true,
@@ -215,31 +217,6 @@ class AuthController {
       return res.status(200).json({
         success: true,
         msg: "Welcome Completed",
-        items: [response],
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return res.status(500).json({
-          success: false,
-          error: error.message,
-        });
-      } else {
-        return res.status(500).json({ success: false, error: "Unknown Error" });
-      }
-    }
-  }
-
-  public async updateImage(req: Request, res: Response) {
-    const { image, userId } = AuthValidator.UpdateImageBodySchema.parse(
-      req.body
-    );
-
-    try {
-      const response = await this.authRepository.updateImage(image, userId);
-
-      return res.status(200).json({
-        success: true,
-        msg: "Image Updated",
         items: [response],
       });
     } catch (error: unknown) {
