@@ -67,6 +67,8 @@ class AuthController {
         throw new Error(result.error);
       }
 
+      console.log(result);
+
       return res.status(200).json({
         success: true,
         msg: "SignIn Successfully",

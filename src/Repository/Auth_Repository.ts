@@ -75,6 +75,8 @@ class AuthRepository {
 
       const check = await bcrypt.compare(password, user.profile!.password);
 
+      console.log(check);
+
       if (check == null) {
         throw new Error("Password Incorrect");
       }
