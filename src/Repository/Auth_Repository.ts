@@ -75,9 +75,7 @@ class AuthRepository {
 
       const check = await bcrypt.compare(password, user.profile!.password);
 
-      console.log(check);
-
-      if (check == null) {
+      if (!check) {
         throw new Error("Password Incorrect");
       }
 
@@ -90,7 +88,7 @@ class AuthRepository {
       const token = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
       user.profile!.lastLogin = new Date(Date.now());
 
-      user.save();
+      await user.save();
 
       const userWP: AnyObject = { ...user.toObject() };
 
@@ -103,7 +101,7 @@ class AuthRepository {
       if (error instanceof Error) {
         return { error: error.message };
       } else {
-        return { error: "Unknowm Error" };
+        return { error: "Unknown Error" };
       }
     }
   }
