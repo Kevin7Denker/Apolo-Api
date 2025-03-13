@@ -28,7 +28,7 @@ describe("AuthController", () => {
       );
 
       await axios.delete(
-        `https://apolo-api.onrender.com/auth/user/${res.data.items[0]._id}`
+        `https://api-apolo.kvdenker.com/auth/user/${res.data.items[0]._id}`
       );
 
       expect(res.status).toBe(201);
@@ -37,7 +37,7 @@ describe("AuthController", () => {
 
     it("should return error when user already exists", async () => {
       await axios
-        .post("https://apolo-api.onrender.com/auth/signup", {
+        .post("https://api-apolo.kvdenker.com/auth/signup", {
           name: "John",
           surname: "Wick",
           identity: "@teste",
@@ -63,7 +63,7 @@ describe("AuthController", () => {
   describe("signIn", () => {
     it("should sign in an existing user successfully", async () => {
       const res = await axios.post(
-        "https://apolo-api.onrender.com/auth/signin",
+        "https://api-apolo.kvdenker.com/auth/signin",
         {
           email: "existing@example.com",
           password: "teste123",
@@ -84,7 +84,7 @@ describe("AuthController", () => {
       );
 
       await axios
-        .post("https://apolo-api.onrender.com/auth/signin", {
+        .post("https://api-apolo.kvdenker.com/auth/signin", {
           email: "nonexistent@example.com",
           password: "password",
         })
@@ -105,7 +105,7 @@ describe("AuthController", () => {
       );
 
       const res = await axios.delete(
-        "https://apolo-api.onrender.com/auth/user/validUserId"
+        "https://api-apolo.kvdenker.com/auth/user/validUserId"
       );
 
       expect(res.status).toBe(200);
