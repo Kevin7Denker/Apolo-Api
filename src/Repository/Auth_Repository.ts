@@ -242,6 +242,14 @@ class AuthRepository {
     country: string,
     code: string
   ) {
+    console.log("Entrou no CompleteWelcome");
+    console.log("Email: " + email);
+    console.log("Image: " + image);
+    console.log("Identity: " + identity);
+    console.log("Genres: " + genres);
+    console.log("Country: " + country);
+    console.log("Code: " + code);
+
     try {
       const user = (await User.findOne({
         "profile.email": email,
@@ -258,13 +266,19 @@ class AuthRepository {
         contentType: image.type,
       };
 
+      console.log("image: " + user.profile.image);
+
       user.profile.identity = identity;
       user.profile.dateCriation = new Date(Date.now());
+
+      console.log("identity: " + user.profile.identity);
 
       if (user.profile.nationality) {
         user.profile.nationality.country = country;
         user.profile.nationality.code = code;
       }
+
+      console.log("country: " + user.profile.nationality);
 
       user.data.genres = genres;
 
