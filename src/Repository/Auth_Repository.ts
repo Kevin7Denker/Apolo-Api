@@ -236,7 +236,7 @@ class AuthRepository {
 
   public async CompleteWelcome(
     email: string,
-    image: File,
+    image: string,
     identity: string,
     genres: string[],
     country: string,
@@ -255,36 +255,19 @@ class AuthRepository {
         "profile.email": email,
       })) as UserDocument;
 
-      console.log("Repositorio: " + user);
-
-      if (user === null) {
+      if (user == null) {
         throw new Error("User not found");
       }
 
-      user.profile.image = {
-        data: Buffer.from(await image.arrayBuffer()),
-        contentType: image.type,
-      };
+      user.profile!.identity = identity;
+      user.profile!.nationality!.country = country;
+      user.profile!.nationality!.code = code;
+      user.data!.genres = genres;
+      user.profile!.image = image;
 
-      console.log("image: " + user.profile.image);
+      user.save();
 
-      user.profile.identity = identity;
-      user.profile.dateCriation = new Date(Date.now());
-
-      console.log("identity: " + user.profile.identity);
-
-      if (user.profile.nationality) {
-        user.profile.nationality.country = country;
-        user.profile.nationality.code = code;
-      }
-
-      console.log("country: " + user.profile.nationality);
-
-      user.data.genres = genres;
-
-      console.log(user);
-
-      await user.save();
+      console.log("User: " + user);
 
       return { msg: "User attributes updated successfully" };
     } catch (error) {
