@@ -282,9 +282,11 @@ class AuthRepository {
 
       user.data.genres = genres;
 
+      console.log(user);
+
       await user.save();
 
-      return;
+      return { msg: "User attributes updated successfully" };
     } catch (error) {
       if (error instanceof Error) {
         return { error: `${error.message}` };
