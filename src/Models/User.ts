@@ -22,13 +22,9 @@ const Profile = new Schema<Profile>(
       countrie: { type: String, default: "", required: false },
       code: { type: String, default: "", required: false },
     },
-    image: {
-      type: Buffer,
-      default: "",
-      required: false,
-    },
-    lastLogin: { type: Date, default: Date.now(), required: true },
-    lastUpdate: { type: Date, default: Date.now(), required: true },
+    image: { type: String, default: "", required: false },
+    lastLogin: { type: Date, default: Date.now, required: true },
+    lastUpdate: { type: Date, default: Date.now, required: true },
     dateCriation: { type: Date, default: null, required: false },
   },
   { _id: false }
