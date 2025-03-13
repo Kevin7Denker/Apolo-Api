@@ -70,5 +70,3 @@ const UserSchema: Model<UserDocument> = mongoose.model<UserDocument>(
 );
 
 export default UserSchema;
-
-//export default mongoose.model<UserDocument>("User", User);
