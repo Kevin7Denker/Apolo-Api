@@ -11,7 +11,7 @@ describe("AuthController", () => {
   describe("signUp", () => {
     it("should sign up a new user successfully", async () => {
       const res = await axios.post(
-        "https://apolo-api.onrender.com/auth/signup",
+        "https://api-apolo.kvdenker.com/auth/signup",
         {
           name: "John",
           surname: "Wick",

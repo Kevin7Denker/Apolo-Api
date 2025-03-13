@@ -10,7 +10,7 @@ describe("UserController", () => {
   describe("findUserIdentity", () => {
     it("should find user by identity successfully", async () => {
       const res = await axios.post(
-        "https://apolo-api.onrender.com/user/find-identity/:?id=@teste"
+        "https://api-apolo.kvdenker.com/user/find-identity/:?id=@teste"
       );
 
       expect(res.status).toBe(200);
