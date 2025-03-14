@@ -6,6 +6,25 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 class AuthMiddleWare {
+  public static async simpleCheckToken(token: string) {
+    const secret = process.env.SECRET as Secret;
+
+    if (!token) {
+      throw new Error("Access denied");
+    }
+
+    try {
+      const test = await jwt.verify(token, secret);
+
+      if (test) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      throw new Error("Invalid Token");
+    }
+  }
+
   public static async checkToken(
     req: Request,
     res: Response,

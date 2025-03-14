@@ -1,4 +1,3 @@
-import ejs from "ejs";
 import fs from "fs";
 import path from "path";
 import bcrypt from "bcrypt";
@@ -6,10 +5,15 @@ import { AnyObject } from "mongoose";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 import User from "../Models/User";
-import { SignUpEmail } from "../Services/Email/Emails.ts/Auth_Emails";
+import {
+  SignUpEmail,
+  errorEmail,
+  sendChangePasswordEmail,
+} from "../Server/Services/Email/Emails.ts/Auth_Emails";
 import { env } from "../Config/ServerConfig";
 import UserRepository from "./User_Repository";
 import { UserDocument } from "src/interfaces/User";
+import AuthMiddleWare from "src/MiddleWare/Auth_MiddleWare";
 
 class AuthRepository {
   userRepository: UserRepository;
@@ -106,6 +110,71 @@ class AuthRepository {
     }
   }
 
+  public async sendChangePasswordEmail(email: string, token: string) {
+    try {
+      const secret = env.SECRET;
+
+      if (secret == null) {
+        throw new Error("The secret is not defined");
+      }
+
+      const res = AuthMiddleWare.simpleCheckToken(token);
+
+      if (await res) {
+        sendChangePasswordEmail(email, token);
+      } else {
+        throw new Error("Invalid Token");
+      }
+
+      return { msg: "Email sent successfully" };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { error: error.message };
+      } else {
+        return { error: "Unknown Error" };
+      }
+    }
+  }
+
+  public async changePassword(email: string, token: string, password: string) {
+    try {
+      const secret = env.SECRET;
+
+      if (secret == null) {
+        throw new Error("The secret is not defined");
+      }
+
+      const res = AuthMiddleWare.simpleCheckToken(token);
+
+      if (await res) {
+        const user = (await User.findOne({
+          "profile.email": email,
+        })) as UserDocument;
+
+        if (user == null) {
+          throw new Error("User not found");
+        }
+
+        const salt = await bcrypt.genSalt(12);
+        const hash = await bcrypt.hash(password, salt);
+
+        user.profile!.password = hash;
+
+        user.save();
+
+        return { msg: "Password updated successfully" };
+      } else {
+        throw new Error("Invalid Token");
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { error: error.message };
+      } else {
+        return { error: "Unknown Error" };
+      }
+    }
+  }
+
   public async deleteUser(userId: string) {
     try {
       const user = (await User.findByIdAndDelete(userId)) as UserDocument;
@@ -171,15 +240,7 @@ class AuthRepository {
     }
 
     try {
-      const templatePath = path.join(
-        __dirname,
-        "../Templates/Responses/Response_NotVerified.html"
-      );
-      const templateContent = fs.readFileSync(templatePath, "utf-8");
-
-      const html = await ejs.render(templateContent, {
-        verificationLink: `https://apolo-api.onrender.com/auth/verify-email/resend/${token}`,
-      });
+      const html = await errorEmail(token);
 
       return { msg: "Validation Error", file: html };
     } catch (error) {

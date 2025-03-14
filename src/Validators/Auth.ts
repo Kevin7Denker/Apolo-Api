@@ -23,6 +23,11 @@ class AuthValidator {
     country: z.string(),
     code: z.string().length(2),
   });
+
+  public ChangePasswordBodySchema = z.object({
+    email: z.string().email(),
+    token: z.string(),
+  });
 }
 
 export default new AuthValidator();

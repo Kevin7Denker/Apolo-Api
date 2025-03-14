@@ -30,4 +30,8 @@ route.delete("/user/:userId", (req, res) =>
   authController.deleteUser(req, res)
 );
 
+route.post("/change-password", (req, res) =>
+  authController.changePassword(req, res)
+);
+
 export default route;

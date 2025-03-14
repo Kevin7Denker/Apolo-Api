@@ -159,6 +159,34 @@ class AuthController {
     }
   }
 
+  public async changePassword(req: Request, res: Response) {
+    const { email, token } = AuthValidator.ChangePasswordBodySchema.parse(
+      req.body
+    );
+
+    try {
+      const response = await this.authRepository.sendChangePasswordEmail(
+        email,
+        token
+      );
+
+      return res.status(200).json({
+        success: true,
+        msg: "Email sent",
+        items: [response],
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return res.status(500).json({
+          success: false,
+          error: error.message,
+        });
+      } else {
+        return res.status(500).json({ success: false, error: "Unknown Error" });
+      }
+    }
+  }
+
   public async resendValEmail(req: Request, res: Response) {
     const Expiredtoken = req.params.token;
 
