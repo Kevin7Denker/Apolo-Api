@@ -1,7 +1,7 @@
 import app from "./app";
 import startServer, { env } from "./Config/ServerConfig";
 
-const port = env.PORT || 2612;
+const port = env.PORT || 8088;
 
 startServer()
   .then(() => {

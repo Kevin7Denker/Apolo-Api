@@ -12,8 +12,8 @@ import {
 } from "../Server/Services/Email/Emails.ts/Auth_Emails";
 import { env } from "../Config/ServerConfig";
 import UserRepository from "./User_Repository";
-import { UserDocument } from "src/interfaces/User";
-import AuthMiddleWare from "src/MiddleWare/Auth_MiddleWare";
+import { UserDocument } from "../interfaces/User";
+import AuthMiddleWare from "../MiddleWare/Auth_MiddleWare";
 
 class AuthRepository {
   userRepository: UserRepository;

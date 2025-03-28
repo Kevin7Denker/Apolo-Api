@@ -3,7 +3,7 @@ import ejs from "ejs";
 import fs from "fs";
 import path from "path";
 
-import AuthMiddleWare from "src/MiddleWare/Auth_MiddleWare";
+import AuthMiddleWare from "../../../../MiddleWare/Auth_MiddleWare";
 
 import * as dotenv from "dotenv";
 dotenv.config();
